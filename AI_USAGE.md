@@ -430,3 +430,70 @@ AGENTS.md.
   Demand-to-Revenue) now have tested state logic, keyboard-verified
   UI, accessibility compliance, and structured observability, ahead
   of Phase 4 (marketing pages).
+
+## Session 11 — Phase 4 kickoff: shared layout shell
+
+- **Date / rough time:** Sun Aug 23 2026, ~22:15–22:40 local
+- **Model/provider:** Ox Alpha (opencode/x-preview-f-free), via OpenCode
+- **Skills invoked:** none this session — this was direct spec
+  implementation against DESIGN.md's already-confirmed component
+  rules (§2 tokens, §4 components/nav, §5 layout, §6 elevation,
+  §9 responsive), not a design-taste-frontend pass. Stated explicitly
+  rather than omitted.
+- **What was done:**
+  - Brand token import: `app/globals.css` created importing
+    `brand-assets/06_Brand_Tokens/daxvora.css` directly — no retyped
+    hex anywhere; shell styles reference the CSS custom properties.
+  - Favicon/icon wiring in `app/layout.tsx` metadata using the
+    existing set (16/32/48/180/512 + .ico) copied as-is into
+    `public/icons/`; nothing needed deriving from SVG. Wordmark Carbon
+    SVG copied to `public/brand/` for header/footer serving.
+  - Built `SiteHeader` / `DiscoveryCtaStrip` / `SiteFooter` per
+    DESIGN.md §4/§5; mobile disclosed menu implemented with real
+    `useState` + `aria-expanded` + `aria-controls` behind a visible
+    "Menu" text label, not a CSS-only toggle.
+  - `app/layout.tsx` wired header → main → discovery CTA strip →
+    footer; CTA strip placed pre-footer and renders on every page per
+    DESIGN.md §5 / PRD §4 persistent-secondary-CTA rule.
+- **Human review gate — items found this session:**
+  1. Missing Elevation-1 box-shadow on the open mobile menu panel:
+     DESIGN.md §4 names it one of only three approved shadowed
+     surfaces and §6 defines the value; the initial build had no
+     shadow anywhere on `.primary-nav`. Human-caught, sent back for
+     revision.
+  2. Nested `<main><main>` landmark on every route, caused by the
+     pre-existing placeholder `app/page.tsx` (left untouched per
+     explicit instruction) combined with each demo page independently
+     wrapping its content in `<main>`. Self-identified by the agent
+     during its own landmark-structure check via curl of rendered
+     HTML — not human-caught. Fixed on the three demo pages by
+     removing their redundant wrappers; `/` route's duplicate remains
+     and is documented as self-resolving when Phase 4 replaces the
+     Home placeholder.
+  3. One deferred-by-design item, not a bug: active-page nav underline
+     (DESIGN.md §4) requires `usePathname()`, which was out of scope
+     because SiteHeader was specified as a prop-less, non-dynamic
+     component this session; scheduled for the Home page session.
+- **Revision:** mobile menu Elevation-1 shadow added, scoped to
+  `.primary-nav[data-open="true"]` inside the existing ≤767px media
+  query only; verified as the single `box-shadow` occurrence in the
+  compiled stylesheet, confirming no other surface gained elevation.
+- **Verification performed:** typecheck clean before and after the
+  fix; 29/29 tests unchanged throughout (demo suites functionally
+  untouched); token resolution verified via the compiled stylesheet
+  (all six `--dx-*` declarations confirmed in the served CSS, webpack
+  banner proving import source) rather than a live DOM read, because
+  neither Node nor Python Playwright was available in this
+  environment — a full browser-level check did not occur and is not
+  claimed; landmark structure verified via direct curl of rendered
+  HTML, not screenshots. No manual keyboard pass was performed or
+  claimed for this session — the shell adds only nav/menu controls,
+  and a full site-wide keyboard pass on them is deferred to the
+  Phase 7 verification pass per IMPLEMENTATION_PLAN.md, not skipped
+  silently.
+- **One flagged human decision, not agent-invented:** footer surface
+  treatment (Bone background, Carbon wordmark). DESIGN.md does not
+  specify a footer explicitly; the agent proposed matching the header
+  surface and flagged it for review rather than deciding unilaterally;
+  human confirmed it as consistent with DESIGN.md §2's flat-first /
+  no-separate-dark-mode rule.
