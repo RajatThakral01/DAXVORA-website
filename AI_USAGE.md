@@ -573,3 +573,84 @@ AGENTS.md.
   HTML; two rounds of compiled-CSS/rendered-HTML greps for the
   Signal fix specifically, distinguishing token definition from token
   usage.
+
+## Session 13 — Phase 4: Services page
+
+- **Date / rough time:** Sun Aug 23 2026, ~23:00–23:15 local
+- **Model/provider:** Ox Alpha (opencode/x-preview-f-free), via OpenCode
+- **What was done:** built `app/services/page.tsx` — a real semantic
+  `<table>` (`thead`/`tbody`/`th scope`), not a div-grid, listing all
+  6 PRD-required services (operating-system discovery, data/context
+  foundations, Halo Agent, demand generation/revenue operations,
+  business-process automation, decision intelligence), each row
+  stating what it's best for and what a client receives, grounded in
+  `reference-docs/daxvora_company-vision-positioning-and-services_
+  v01.docx` (read-only extraction, never copied into the repo).
+  Mobile behavior per DESIGN.md §9: horizontal scroll with a
+  permanent visible "Scroll for more →" hint plus a CSS-only
+  mask-image edge fade disabled ≥768px; scroll container is
+  `tabIndex={0}` with an `aria-label`. No new dependencies added.
+- **Self-flagged design-doc tension (documented decision, not a
+  bug):** DESIGN.md §4 (Cards) names "the 6 services" as a valid
+  Cards use case; DESIGN.md §5 (Services layout) says "comparison-
+  table treatment." Built as a table — §5 is the page-scoped
+  directive and matches PRD §4's near-verbatim "table-style per brand
+  kit" wording, and §4-Tables already fully specs the styling. Stated
+  explicitly per IMPLEMENTATION_PLAN.md Phase 4 step 2 rather than
+  silently resolved.
+- **Sourcing transparency:** the source docx's OFFERS/07 table lists
+  5 commercial engagement models, not the PRD's 6 named services — so
+  each PRD service was grounded in its actual matching section rather
+  than invented or forced into the doc's literal table structure:
+  OFFERS/07 for operating-system discovery (verbatim), METHOD stage 04
+  + COVERAGE foundation row for data/context foundations, SIGNATURE
+  SYSTEM/06 for Halo Agent, COVERAGE demand-generation and
+  operations/SOPs rows for demand gen/revenue ops and business-process
+  automation, VISION "processed information" outcome + COVERAGE
+  finance/intelligence rows for decision intelligence. Column headers
+  use the source's own framing ("Best for" / "Typical deliverable").
+- **Skills invoked:** `design-taste-frontend`, run per
+  IMPLEMENTATION_PLAN.md Phase 4. No flags raised on this page —
+  checked and cleared: the table is the correct binding component
+  (not a generic long-list violation); no duplicate CTA (verified:
+  exactly one contact-intent button on the page, the persistent
+  strip); copy self-audit against source-doc wording; explicit mobile
+  collapse behavior; zero new dependencies; contrast verified (all
+  text ≥10.38:1 on Bone). `web-design` and
+  `.opencode/design-references/` were NOT invoked, consistent with
+  Phase 4's no-new-design-decisions rule.
+- **Human review gate — one real issue found:** the table header
+  row's `border-bottom` used `var(--dx-graphite)` instead of
+  `var(--dx-mist)`, deviating from DESIGN.md §4's binding "thin Mist
+  rules" spec, which applies to all table rules, not just body rows.
+  Human-caught, sent back for revision rather than hand-edited.
+  Recorded explicitly: the taste-skill's own audit did NOT catch this
+  — it is a spec-conformance detail outside that skill's anti-slop
+  scope, consistent with AGENTS.md's position that the skill audit is
+  a first pass, not the final word.
+- **Revision:** one-line border-color fix. In the same pass, added an
+  `aria-label` on the scroll container — a human-suggested,
+  non-blocking a11y enhancement recorded as such, not conflated with
+  the bug fix. Verified the two remaining `graphite`-bordered CSS
+  rules in the file (`.btn-secondary`, `.menu-toggle`) are correct,
+  DESIGN.md-mandated component borders outside the table rule set —
+  not overlooked instances of the same issue; this distinction was
+  checked deliberately rather than treating a grep as self-evident.
+- **Final state:** typecheck clean, 29/29 tests unchanged across both
+  rounds; `/services` returns HTTP 200 (route no longer 404s);
+  exactly one `<main>`, one `<h1>`, one real `<table>`, 6 `<tbody>`
+  rows; `aria-current="page"` fires correctly on the Services nav
+  link; zero `var(--dx-graphite)` inside any table rule in the
+  compiled stylesheet after the fix.
+- **Generated vs. human-authored:** all code agent-generated;
+  Services' factual content grounded in the human-authored vision/
+  positioning doc, extracted read-only and unmodified; the Cards-vs-
+  table tension was agent-identified-and-resolved with stated
+  reasoning (not escalated as a human call); the header-border issue
+  was human-identified, agent-implemented.
+- **Verification performed:** typecheck and full test suite each
+  round; curl-based landmark/heading/table/row-count/aria-current
+  checks on rendered HTML; compiled-CSS grep distinguishing
+  table-scoped graphite usage (must be zero) from legitimate
+  component-scoped graphite usage elsewhere in the file (correctly
+  left alone).
