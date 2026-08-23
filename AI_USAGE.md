@@ -196,3 +196,65 @@ AGENTS.md.
   the reducer identified the unreachable-branch bug independent of
   test results — tests passed despite the bug, since none asserted on
   reason text before the fix.
+
+## Session 7 — Phase 3: Halo Agent demo UI
+
+- **Date / rough time:** Sun Aug 23 2026, ~17:10–17:40 local
+- **Model/provider:** Ox Alpha (opencode/x-preview-f-free), via OpenCode
+- **What was done:**
+  - Added Next.js (App Router, TypeScript) alongside the existing
+    Vitest setup — dependencies split correctly (`next`/`react`/
+    `react-dom` as dependencies; `typescript`/`vitest`/`@types/*` as
+    devDependencies). Vitest config untouched; both toolchains
+    coexist.
+  - Built `HaloAgentDemo.tsx` as a Client Component wiring the tested
+    reducer via `useReducer` — no logic duplicated from the reducer.
+  - Raw semantic HTML only (no styling, per AGENTS.md demo-build-order
+    rule): SIMULATED status label with verbatim "Not connected to
+    client systems" text, persona selection buttons with
+    `aria-pressed`, context panel as labeled dt/dd pairs,
+    `aria-live="polite"` handoff-reason announcement region, Restart
+    control, and an in-page Run trace panel rendering all 8 PRD §7.3
+    observability fields per event, most recent first.
+  - App Router scaffold: bare `app/layout.tsx` (no fonts loaded, per
+    DESIGN.md no-webfont decision), placeholder `app/page.tsx`,
+    reachable route at `/halo-agent-demo`.
+- **Human review gate:** two gaps identified before the UI checkpoint
+  closed, both requiring reducer changes and both sent back for
+  revision rather than hand-edited:
+  1. No simulated-provider-failure path existed anywhere (reducer,
+     tests, or UI) despite being a PRD §5 shared requirement and a
+     Phase 7 fallback-reachability dependency — added the new
+     `route_failed` status, `SIMULATE_PROVIDER_FAILURE` action, guard
+     logic mirroring ROUTE_DECISION, a dedicated test, and a "Simulate
+     provider failure" button wired to it so the fallback state is
+     UI-reachable.
+  2. The in-page observability/trace panel required by
+     IMPLEMENTATION_PLAN.md Phase 3 was missing from the UI even
+     though the reducer already computed the data — added the Run
+     trace table.
+- **Follow-up bug found in that review round:** the terminal-state
+  no-op guard's reason text claimed "human owns the thread" for every
+  terminal status, which became actively false once `route_failed`
+  existed (and was already slightly inaccurate for specialist states).
+  Fixed via a shared `terminalNoOpReason()` helper with per-status
+  accurate messaging, verified by a new test asserting the old false
+  claim is absent from the corrected reason text.
+- **Manual verification:** human performed a real Tab-only keyboard
+  pass (not simulated) confirming visible focus at every control and
+  correct Enter/Space activation — verified both the specialist-
+  routing path and the simulated-failure path end-to-end with trace-
+  panel accuracy in both cases.
+- **Final state:** 10/10 reducer tests passing, typecheck clean, UI
+  keyboard-verified by human, committed at `4462331`.
+- **Generated vs. human-authored:** all code agent-generated; both
+  gaps and the terminal-reason bug were human-identified via code
+  review and interactive testing, agent-implemented per those
+  findings.
+- **Verification performed:** raw test/typecheck output reviewed each
+  round; staged-file list inspected pre-commit (confirmed `.next/`
+  and `node_modules/` properly gitignored despite existing locally;
+  also added `*.tsbuildinfo` to .gitignore and tracked
+  `next-env.d.ts` per Next convention); human interactive keyboard
+  test with photographic evidence (2 screenshots) of both demo paths
+  working correctly, not just code-level test assertions.
