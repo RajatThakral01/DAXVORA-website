@@ -3,6 +3,7 @@
 import { useState } from "react";
 import type { JSX } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const NAV_LINKS: Array<{ href: string; label: string }> = [
   { href: "/", label: "Home" },
@@ -16,6 +17,7 @@ const NAV_LINKS: Array<{ href: string; label: string }> = [
 
 export default function SiteHeader(): JSX.Element {
   const [menuOpen, setMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="site-header">
@@ -42,7 +44,11 @@ export default function SiteHeader(): JSX.Element {
         <ul>
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} onClick={() => setMenuOpen(false)}>
+              <Link
+                href={link.href}
+                aria-current={pathname === link.href ? "page" : undefined}
+                onClick={() => setMenuOpen(false)}
+              >
                 {link.label}
               </Link>
             </li>
