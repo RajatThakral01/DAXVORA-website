@@ -258,3 +258,54 @@ AGENTS.md.
   `next-env.d.ts` per Next convention); human interactive keyboard
   test with photographic evidence (2 screenshots) of both demo paths
   working correctly, not just code-level test assertions.
+
+## Session 8 — Phase 3: shared observability refactor + Data & Context Foundation reducer
+
+- **Date / rough time:** Sun Aug 23 2026, ~20:55–21:15 local
+- **Model/provider:** Ox Alpha (opencode/x-preview-f-free), via OpenCode
+- **What was done:**
+  - Step 0 refactor: extracted `ObservabilityEvent`, `EventResult`,
+    and `REDACTION_NOTE` into a new shared module
+    (`src/demos/shared/observability.ts`) rather than duplicating them
+    across demos; halo-agent types import and re-export so its public
+    API is unchanged. During the refactor, discovered `TransitionEntry`
+    was concretely typed to Halo Agent's status union and genericized
+    it to `TransitionEntry<Status extends string>` so both demos
+    instantiate the same shape against their own status unions —
+    verified safe by all 10 existing Halo Agent tests passing
+    unchanged after the move.
+  - Built the Data & Context Foundation demo state logic:
+    `dataContextReducer` with chain idle -> normalizing -> governed ->
+    decision_taken (terminal), plus source_failed reachable only from
+    normalizing.
+  - Seeded 4 scenario fixtures carrying PRD §7.5 build evidence as
+    fields: two clean pairs producing DISTINCT decisions (proving
+    data-driven routing), one missing-required-field source correctly
+    excluded into a partial context that still reaches a defined
+    manual-review decision, and one conflicting-values case resolved
+    by a stated "most recent source wins" precedence rule.
+  - Normalization is real raw-string parsing (`key=value; …` split,
+    trim, required-field validation on parsed pairs) — not
+    fixture-staged outputs.
+  - Wrote a shared-per-demo `invalidActionNoOpReason()` helper with
+    accurate per-status messages from the start, avoiding the
+    blanket-claim bug found in Halo Agent's first pass.
+- **Human review gate:** one gap found — `test_positive_decision`
+  exercised only 2 of 3 clean fixtures, skipping renewal-signals, the
+  fixture built specifically to prove two scenarios produce different
+  decisions; the data-driven-routing claim had no actual assertion.
+  Sent back for revision rather than hand-edited.
+- **Revision:** loop extended to cover all clean fixtures; new test
+  `test_decisions_differ_across_scenarios` asserts onboarding-intake
+  and renewal-signals produce genuinely unequal `decision.action`
+  values.
+- **Final state:** 20/20 tests passing across both demo suites,
+  typecheck clean; committed this session (hash recorded below).
+- **Generated vs. human-authored:** all code agent-generated; the
+  coverage gap was human-identified via review of test coverage
+  against fixture intent, fix agent-implemented.
+- **Verification performed:** raw test/typecheck output reviewed each
+  round; full-suite regression (both demos) after the shared-module
+  refactor confirmed no cross-demo breakage; type errors surfaced by
+  the genericized TransitionEntry were fixed structurally (shared
+  generic type) rather than by loosening tests.

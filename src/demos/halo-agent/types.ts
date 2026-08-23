@@ -18,25 +18,15 @@ export interface ContextPanel {
   handoffReason: string;
 }
 
-export interface TransitionEntry {
-  fromStatus: HaloAgentStatus;
-  toStatus: HaloAgentStatus;
-  reason: string;
-  timestamp: number;
-}
+import type {
+  ObservabilityEvent,
+  TransitionEntry as SharedTransitionEntry,
+} from "../shared/observability";
 
-export type EventResult = "accepted" | "rejected" | "no-op" | "error";
+export type { EventResult, ObservabilityEvent } from "../shared/observability";
+export { REDACTION_NOTE } from "../shared/observability";
 
-export interface ObservabilityEvent {
-  runId: string;
-  decision: string;
-  reason: string;
-  action: string;
-  result: EventResult;
-  error: string | null;
-  timingMs: number;
-  redactionNote: string;
-}
+export type TransitionEntry = SharedTransitionEntry<HaloAgentStatus>;
 
 export interface HaloAgentState {
   status: HaloAgentStatus;
@@ -55,5 +45,3 @@ export type HaloAgentAction =
   | { type: "ROUTE_DECISION"; result: RouteTarget }
   | { type: "SIMULATE_PROVIDER_FAILURE" }
   | { type: "RESTART" };
-
-export const REDACTION_NOTE = "no client data present — nothing redacted";
