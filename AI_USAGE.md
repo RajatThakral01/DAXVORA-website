@@ -309,3 +309,58 @@ AGENTS.md.
   refactor confirmed no cross-demo breakage; type errors surfaced by
   the genericized TransitionEntry were fixed structurally (shared
   generic type) rather than by loosening tests.
+
+## Session 9 — Phase 3: Data & Context Foundation demo UI
+
+- **Date / rough time:** Sun Aug 23 2026, ~21:20–21:35 local
+- **Model/provider:** Ox Alpha (opencode/x-preview-f-free), via OpenCode
+- **What was done:**
+  - Built `DataContextDemo.tsx` as a Client Component wiring the
+    tested reducer via `useReducer` — raw semantic HTML only, no
+    styling: SIMULATED status label with verbatim "Not connected to
+    client systems"; scenario selection buttons with `aria-pressed`;
+    Confirm governance / Decide action / Simulate source failure
+    buttons each enabled only at their valid status; a source list
+    rendering three distinct inclusion states in visible text
+    ("Awaiting normalization" / "Included" / "Excluded: {reason}")
+    rather than color-only, per DESIGN.md §10; governed context fields
+    as labeled dt/dd pairs with an explicit "Completeness:
+    Complete/Partial" text line; decision shown as labeled Action and
+    Reason elements; an `aria-live="polite"` region announcing
+    status/decision/failure changes; Restart control.
+  - Extracted a shared `TracePanel` component
+    (`src/demos/shared/TracePanel.tsx`) rather than duplicating the
+    observability table markup a second time — refactored
+    `HaloAgentDemo.tsx` to use it too, removing its inline duplicate;
+    verified zero regression (20/20 tests still passing, both routes
+    still render correctly).
+  - New temporary route `/data-context-demo` mirroring the Halo Agent
+    demo route pattern.
+- **Human review gate:** one bug found — the section's
+  `aria-labelledby` referenced a nonexistent id
+  ("data-context-demo-heading" instead of the actual paragraph id
+  "data-context-demo-status"), meaning the section had no accessible
+  name. This class of bug doesn't surface in typecheck, unit tests,
+  or basic HTML-string checks — only in an actual screen-reader pass;
+  caught by manual code review, not automated tooling. Fixed by
+  matching the ids; verified by grepping both demo files to confirm
+  every `aria-labelledby` has a matching id in the same file.
+- **Manual verification:** human performed a real Tab-only keyboard
+  pass, confirmed visible focus via screenshot (visible focus ring on
+  "Decide action"), and verified both the clean-scenario path
+  (onboarding-intake reaching a complete context and a real decision)
+  and the partial-context path (incomplete-refund scenario: excluded
+  source's reason text legible, completeness correctly reading
+  "Partial", decision still reached rather than the flow sticking) —
+  screenshots as evidence for both.
+- **Final state:** 20/20 tests passing (unchanged from reducer
+  checkpoint), typecheck clean, UI keyboard-verified by human with
+  screenshot evidence, committed at [HASH PENDING].
+- **Generated vs. human-authored:** all code agent-generated; the
+  aria-labelledby bug was human-identified via code review,
+  agent-implemented the fix.
+- **Verification performed:** raw test/typecheck output reviewed;
+  grep-based verification of aria-labelledby/id pairing across both
+  demo files; human interactive keyboard test with photographic
+  evidence (2 screenshots) covering both the positive and negative/
+  partial-data paths.
