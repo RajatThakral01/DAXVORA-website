@@ -497,3 +497,79 @@ AGENTS.md.
   surface and flagged it for review rather than deciding unilaterally;
   human confirmed it as consistent with DESIGN.md §2's flat-first /
   no-separate-dark-mode rule.
+
+## Session 12 — Phase 4: Home page
+
+- **Date / rough time:** Sun Aug 23 2026, ~22:45–23:00 local
+- **Model/provider:** Ox Alpha (opencode/x-preview-f-free), via OpenCode
+- **What was done:**
+  - Built `VisionMarker` component per DESIGN.md §4 (Graphite uppercase
+    micro-label + Mist left-rule) — the reusable mechanism for
+    current-vs-vision separation.
+  - Wired `SiteHeader` with `usePathname()` for the active-page
+    `aria-current` underline deferred from Session 11; no new CSS
+    needed (existing `[aria-current="page"]` rule applies).
+  - Replaced the `app/page.tsx` placeholder with real Home content:
+    asymmetric hero per DESIGN.md §5 (statement + honest SIMULATED
+    status fragment with neutral dot), current-state value prop
+    specific to 2–20 person / six-to-seven-figure founder-led
+    businesses per PRD §4, vision language isolated inside
+    `VisionMarker`, next-step links to Method/Services/Halo Agent.
+  - All factual content grounded in
+    `reference-docs/daxvora_company-vision-positioning-and-services_
+    v01.docx`, extracted directly from the .docx XML — read-only,
+    never copied into the repo. No invented claims. No conflict found
+    between the source doc and the human-written briefs; notably the
+    doc itself uses "direction of travel," matching the marker label.
+- **Skills invoked:** `design-taste-frontend`, run per
+  IMPLEMENTATION_PLAN.md Phase 4 before returning output. It flagged:
+  (1) duplicate CTA intent — a primary contact button in next-steps
+  plus the persistent `DiscoveryCtaStrip` immediately below main
+  content created two contact-intent CTAs on one page; button removed,
+  source-doc closing line kept as the section's last line directly
+  above the strip. (2) Hero subtext over the skill's ~20-word
+  guideline; tightened from ~35 to 24 words without losing PRD §4
+  specificity. Documented deliberate non-fixes where binding docs
+  override skill defaults per AGENTS.md conflict order: Arial-only
+  type, no imagery, single light theme, zero decorative motion.
+  `web-design` and `.opencode/design-references/` were NOT invoked,
+  consistent with Phase 4's no-new-design-decisions rule.
+- **Human review gate — two distinct rounds, correctly attributed:**
+  1. design-taste-frontend's own audit (agent-run, not human-caught):
+     the two items above.
+  2. Human-caught after the taste-skill pass: the hero status
+     fragment's `.status-dot` used `var(--dx-signal)` on a line stating
+     the demos are SIMULATED — DESIGN.md §4 reserves Signal for LIVE
+     only ("TEST/MOCKED/SIMULATED: neutral Graphite tag") and §2
+     requires every Signal element to map to an actual system state.
+     The text was accurate; the color contradicted it. Sent back for
+     revision rather than hand-edited.
+- **Revision:** one-line change, `--dx-signal` → `--dx-graphite` on
+  `.status-dot`; dot kept (neutral, `aria-hidden`, text still carries
+  the meaning). Verified as a true removal, not a find-replace
+  assumption: zero `var(--dx-signal…)` usages in the compiled
+  stylesheet and zero in rendered Home HTML, while confirming the
+  token's `:root` definition correctly remained (stripping it would
+  have altered the brand kit, not fixed the bug).
+- **Also recorded (mid-session, self-caught, not a review-gate find):**
+  a CSS edit slip during the taste-skill revision left the original
+  mobile media-query rules orphaned outside `@media`; caught via a
+  brace-balance check before typecheck/tests were re-run and fixed
+  immediately. Logged because it is a real bug class even though it
+  never reached verification.
+- **Final state:** typecheck clean, 29/29 tests unchanged throughout
+  both review rounds; exactly one `<main>` on `/` — resolves the
+  Session 11 nested-landmark item explicitly; exactly one `<h1>`;
+  `VisionMarker` confirmed rendered, not just defined;
+  `aria-current="page"` confirmed on the Home nav link via curl, and
+  on the Method link within the currently-404 `/method` shell.
+- **Generated vs. human-authored:** all code agent-generated; Home's
+  factual content is grounded in the human-authored vision/positioning
+  doc, extracted read-only and unmodified; both review-gate issues
+  were skill/human-identified respectively, both fixes
+  agent-implemented.
+- **Verification performed:** typecheck and full test suite each
+  round; curl-based landmark/heading/aria-current checks on rendered
+  HTML; two rounds of compiled-CSS/rendered-HTML greps for the
+  Signal fix specifically, distinguishing token definition from token
+  usage.
