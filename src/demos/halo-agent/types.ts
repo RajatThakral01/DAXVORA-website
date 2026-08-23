@@ -3,7 +3,8 @@ export type HaloAgentStatus =
   | "routing"
   | "specialist_a"
   | "specialist_b"
-  | "human_escalation";
+  | "human_escalation"
+  | "route_failed";
 
 export type RouteTarget = Extract<
   HaloAgentStatus,
@@ -52,6 +53,7 @@ export interface HaloAgentState {
 export type HaloAgentAction =
   | { type: "SELECT_PERSONA"; personaId: string }
   | { type: "ROUTE_DECISION"; result: RouteTarget }
+  | { type: "SIMULATE_PROVIDER_FAILURE" }
   | { type: "RESTART" };
 
 export const REDACTION_NOTE = "no client data present — nothing redacted";

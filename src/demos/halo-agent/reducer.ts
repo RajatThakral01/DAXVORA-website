@@ -4,6 +4,7 @@ import {
   type ContextPanel,
   type HaloAgentAction,
   type HaloAgentState,
+  type HaloAgentStatus,
   type ObservabilityEvent,
 } from "./types";
 
@@ -29,6 +30,16 @@ export function setClock(next: () => number): void {
 
 const INITIAL_HANDOFF_REASON =
   "Router qualifier evaluating inbound scenario.";
+
+function terminalNoOpReason(status: HaloAgentStatus): string {
+  if (status === "idle") {
+    return "no active routing run";
+  }
+  if (status === "human_escalation") {
+    return 'status "human_escalation" is terminal — human owns the thread';
+  }
+  return `status "${status}" is terminal — no further routing possible`;
+}
 
 function makeRunId(selectionCount: number, personaId: string): string {
   return `run-${String(selectionCount).padStart(3, "0")}-${personaId}`;
@@ -148,10 +159,7 @@ export function haloAgentReducer(
 
     case "ROUTE_DECISION": {
       if (state.status !== "routing") {
-        const reason =
-          state.status === "idle"
-            ? "no active routing run"
-            : `status "${state.status}" is terminal — human owns the thread`;
+        const reason = terminalNoOpReason(state.status);
         return {
           ...state,
           events: [
@@ -223,6 +231,59 @@ export function haloAgentReducer(
             reason,
             "accepted",
             null
+          ),
+        ],
+      };
+    }
+
+    case "SIMULATE_PROVIDER_FAILURE": {
+      if (state.status !== "routing") {
+        const reason = terminalNoOpReason(state.status);
+        return {
+          ...state,
+          events: [
+            ...state.events,
+            makeEvent(
+              state,
+              "SIMULATE_PROVIDER_FAILURE",
+              "provider_failure_simulation_ignored",
+              reason,
+              "no-op",
+              null
+            ),
+          ],
+        };
+      }
+
+      const now = clock();
+      const reason =
+        "Simulated routing-provider failure — escalating to fallback.";
+
+      return {
+        ...state,
+        status: "route_failed",
+        contextPanel: state.contextPanel
+          ? { ...state.contextPanel, handoffReason: reason }
+          : null,
+        transitionLog: [
+          ...state.transitionLog,
+          {
+            fromStatus: state.status,
+            toStatus: "route_failed",
+            reason,
+            timestamp: now,
+          },
+        ],
+        error: reason,
+        events: [
+          ...state.events,
+          makeEvent(
+            state,
+            "SIMULATE_PROVIDER_FAILURE",
+            "routing_provider_failed_simulated",
+            reason,
+            "error",
+            "simulated routing-provider failure — fixture-driven, no real provider contacted"
           ),
         ],
       };

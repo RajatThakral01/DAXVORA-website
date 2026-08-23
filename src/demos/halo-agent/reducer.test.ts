@@ -219,6 +219,15 @@ describe("haloAgentReducer", () => {
   it("test_restart", () => {
     const snapshot = createInitialState();
 
+    const failedRun = haloAgentReducer(
+      haloAgentReducer(createInitialState(), {
+        type: "SELECT_PERSONA",
+        personaId: personas[0].id,
+      }),
+      { type: "SIMULATE_PROVIDER_FAILURE" }
+    );
+    expect(failedRun.status).toBe("route_failed");
+
     const midRunScenarios: HaloAgentState[] = [
       driveToRouted(createInitialState(), personas[0].id),
       driveToRouted(createInitialState(), personas[2].id),
@@ -226,6 +235,7 @@ describe("haloAgentReducer", () => {
         type: "SELECT_PERSONA",
         personaId: personas[1].id,
       }),
+      failedRun,
     ];
 
     for (const scenario of midRunScenarios) {
@@ -233,5 +243,93 @@ describe("haloAgentReducer", () => {
       const restarted = haloAgentReducer(scenario, { type: "RESTART" });
       expect(restarted).toEqual(snapshot);
     }
+  });
+
+  it("test_simulated_provider_failure", () => {
+    const persona = personas[0];
+
+    const afterSelect = haloAgentReducer(createInitialState(), {
+      type: "SELECT_PERSONA",
+      personaId: persona.id,
+    });
+    const beforePanel = afterSelect.contextPanel!;
+
+    const failed = haloAgentReducer(afterSelect, {
+      type: "SIMULATE_PROVIDER_FAILURE",
+    });
+
+    expect(failed.status).toBe("route_failed");
+
+    const failureEvent = failed.events.at(-1)!;
+    expect(failureEvent.result).toBe("error");
+    expect(failureEvent.error).not.toBeNull();
+    expect(failureEvent.decision).toBe("routing_provider_failed_simulated");
+
+    expect(failed.contextPanel!.customerTag).toBe(beforePanel.customerTag);
+    expect(failed.contextPanel!.profileField).toBe(beforePanel.profileField);
+    expect(failed.contextPanel!.historyExcerpt).toBe(
+      beforePanel.historyExcerpt
+    );
+    expect(failed.contextPanel!.handoffReason).toContain("failure");
+
+    const lastEntry = failed.transitionLog.at(-1)!;
+    expect(lastEntry.fromStatus).toBe("routing");
+    expect(lastEntry.toStatus).toBe("route_failed");
+
+    const idleNoOp = haloAgentReducer(createInitialState(), {
+      type: "SIMULATE_PROVIDER_FAILURE",
+    });
+    expect(idleNoOp.status).toBe("idle");
+    expect(idleNoOp.transitionLog.length).toBe(0);
+    expect(idleNoOp.events.at(-1)?.decision).toBe(
+      "provider_failure_simulation_ignored"
+    );
+    expect(idleNoOp.events.at(-1)?.result).toBe("no-op");
+
+    const terminalStates: HaloAgentState[] = [
+      driveToRouted(createInitialState(), persona.id),
+      driveToRouted(createInitialState(), personas[2].id),
+      failed,
+    ];
+
+    for (const terminal of terminalStates) {
+      const logLengthBefore = terminal.transitionLog.length;
+      const ignored = haloAgentReducer(terminal, {
+        type: "SIMULATE_PROVIDER_FAILURE",
+      });
+      expect(ignored.status).toBe(terminal.status);
+      expect(ignored.transitionLog.length).toBe(logLengthBefore);
+      expect(ignored.events.at(-1)?.decision).toBe(
+        "provider_failure_simulation_ignored"
+      );
+      expect(ignored.events.at(-1)?.result).toBe("no-op");
+    }
+  });
+
+  it("test_route_decision_after_route_failed_is_named_noop", () => {
+    const failed = haloAgentReducer(
+      haloAgentReducer(createInitialState(), {
+        type: "SELECT_PERSONA",
+        personaId: personas[0].id,
+      }),
+      { type: "SIMULATE_PROVIDER_FAILURE" }
+    );
+    expect(failed.status).toBe("route_failed");
+
+    const logLengthBefore = failed.transitionLog.length;
+
+    const afterRoute = haloAgentReducer(failed, {
+      type: "ROUTE_DECISION",
+      result: "specialist_a",
+    });
+
+    expect(afterRoute.status).toBe("route_failed");
+    expect(afterRoute.transitionLog.length).toBe(logLengthBefore);
+    expect(afterRoute.events.at(-1)?.decision).toBe("route_decision_ignored");
+    expect(afterRoute.events.at(-1)?.result).toBe("no-op");
+
+    const reason = afterRoute.events.at(-1)?.reason ?? "";
+    expect(reason).toContain("route_failed");
+    expect(reason).not.toContain("human owns the thread");
   });
 });
