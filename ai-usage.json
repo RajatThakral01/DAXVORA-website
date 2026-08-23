@@ -1,0 +1,297 @@
+{
+  "evaluation_id": "DAXVORA-RAJAT-2026-08-A01",
+  "project": "Project 03 — DAXVORA website",
+  "sessions": [
+    {
+      "session_id": 1,
+      "started_at": "Sun Aug 23 2026, ~14:00 local",
+      "ended_at": "Sun Aug 23 2026, ~15:40 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [],
+      "generated_files": [
+        "_throwaway_toggle_test.jsx"
+      ],
+      "human_modified_files": [],
+      "verification": "Human review gate held before staging; credential-pattern secret scan clean (no matches); both project skill files verified present on disk.",
+      "costs": "$0 — no paid service used",
+      "notes": "Environment verification only, no production code. Throwaway toggle component created at repo root and deleted in Session 2 after human review of contents. Repo confirmed fresh with zero commits."
+    },
+    {
+      "session_id": 2,
+      "started_at": "Sun Aug 23 2026, ~15:45 local",
+      "ended_at": "Sun Aug 23 2026, ~16:00 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [],
+      "generated_files": [
+        ".gitignore"
+      ],
+      "human_modified_files": [],
+      "verification": "Human review gate on full 297-file staged list; flags raised on design-references volume, vendored skill binaries, and internal docx files before proceeding.",
+      "costs": "$0 — no paid service used",
+      "notes": "Removed nested vendored repo (.opencode/skills/web-design/.git), four stray .DS_Store files (two more than requested, same junk class), and deleted Session 1's throwaway component after human reviewed its contents. No commit made this session."
+    },
+    {
+      "session_id": 3,
+      "started_at": "Sun Aug 23 2026, ~16:00 local",
+      "ended_at": "Sun Aug 23 2026, ~16:20 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [],
+      "generated_files": [
+        ".gitignore"
+      ],
+      "human_modified_files": [],
+      "verification": "Human review gate before commit; docx exclusion explicitly grep-verified (staged set shrank 297 -> 29 files); push output inspected by human.",
+      "costs": "$0 — no paid service used",
+      "notes": "Initial root commit 24138b2 pushed to https://github.com/RajatThakral01/DAXVORA-website.git; commit message supplied verbatim by the human. Internal docx and vendored skill internals excluded via .gitignore pass 2."
+    },
+    {
+      "session_id": 4,
+      "started_at": "Sun Aug 23 2026, ~16:25 local",
+      "ended_at": "Sun Aug 23 2026, ~16:25 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [],
+      "generated_files": [
+        "AGENTS.md",
+        "AI_USAGE.md"
+      ],
+      "human_modified_files": [],
+      "verification": "Diff shown to human before commit; both changes reviewed prior to push.",
+      "costs": "$0 — no paid service used",
+      "notes": "Deployment target filled in AGENTS.md (Vercel); AI_USAGE.md created and backfilled for Sessions 1-4."
+    },
+    {
+      "session_id": 5,
+      "started_at": "Sun Aug 23 2026, ~16:30 local",
+      "ended_at": "Sun Aug 23 2026, ~17:10 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [
+        "web-design"
+      ],
+      "generated_files": [
+        "DESIGN.md"
+      ],
+      "human_modified_files": [],
+      "verification": "Human itemized review of all 5 hard content constraints twice (post-v2.0 and post-revision); WCAG contrast ratios computed computationally rather than assumed (Signal-on-Body fails at 1.05:1, now banned); two gap-and-fix cycles completed before confirmation. DESIGN.md committed at ca4d354.",
+      "costs": "$0 — no paid service used",
+      "notes": "web-design Phases A+B run (Phase C forbidden by human). Human review gate found two gaps vs v1 draft: missing binding accessibility section and missing page-structure guidance for Halo Agent/About/Contact-CTA pages; both closed in v2.1. Agent flagged skill's 'wow moment' guidance as overridden by AGENTS.md evidence-led direction; human did not overrule. DESIGN.md v2.1 status: confirmed - binding per AGENTS.md source-of-truth order."
+    },
+    {
+      "session_id": 6,
+      "started_at": "Sun Aug 23 2026, ~16:45 local",
+      "ended_at": "Sun Aug 23 2026, ~17:10 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [],
+      "generated_files": [
+        "package.json",
+        "tsconfig.json",
+        "src/demos/halo-agent/types.ts",
+        "src/demos/halo-agent/fixtures.ts",
+        "src/demos/halo-agent/reducer.ts",
+        "src/demos/halo-agent/reducer.test.ts"
+      ],
+      "human_modified_files": [],
+      "verification": "Raw npm test / tsc --noEmit output reviewed each round; staged-file list inspected pre-commit (7 files, no node_modules strays); 8/8 tests passing after revision, typecheck clean. Committed at dc8809c.",
+      "costs": "$0 — no paid service used",
+      "notes": "Tooling choice (TypeScript + Vitest, dev-only manifest) human-confirmed before any file written. Two human-caught issues fixed: unreachable ternary branch misreporting empty-vs-unknown persona-ID reasons; test_boundary_escalation covering only the escalation terminal instead of a specialist terminal. Human code-read caught the unreachable-branch bug despite tests passing."
+    },
+    {
+      "session_id": 7,
+      "started_at": "Sun Aug 23 2026, ~17:10 local",
+      "ended_at": "Sun Aug 23 2026, ~17:40 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [],
+      "generated_files": [
+        "package.json",
+        "tsconfig.json",
+        "app/layout.tsx",
+        "app/page.tsx",
+        "app/halo-agent-demo/page.tsx",
+        "src/demos/halo-agent/HaloAgentDemo.tsx",
+        "next-env.d.ts"
+      ],
+      "human_modified_files": [],
+      "verification": "Raw test/typecheck output reviewed each round; staged-file list inspected pre-commit; human Tab-only keyboard pass confirming visible focus and Enter/Space activation on both demo paths, with 2 screenshots as evidence. 10/10 tests passing, typecheck clean. Committed at 4462331.",
+      "costs": "$0 — no paid service used",
+      "notes": "Next.js added alongside Vitest (dev/runtime dependency split). Two reducer-level gaps human-caught pre-commit: missing simulated-provider-failure path entirely (added route_failed status, SIMULATE_PROVIDER_FAILURE action, UI button); missing in-page Run trace panel required by IMPLEMENTATION_PLAN.md Phase 3. Follow-up bug same round: terminal no-op reason text claimed 'human owns the thread' for every terminal status; fixed via shared terminalNoOpReason() helper with a test asserting the false claim is absent."
+    },
+    {
+      "session_id": 8,
+      "started_at": "Sun Aug 23 2026, ~20:55 local",
+      "ended_at": "Sun Aug 23 2026, ~21:15 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [],
+      "generated_files": [
+        "src/demos/shared/observability.ts",
+        "src/demos/halo-agent/types.ts",
+        "src/demos/data-context/types.ts",
+        "src/demos/data-context/fixtures.ts",
+        "src/demos/data-context/reducer.ts",
+        "src/demos/data-context/reducer.test.ts"
+      ],
+      "human_modified_files": [],
+      "verification": "Raw test/typecheck output reviewed each round; full-suite regression across both demos after the shared-module refactor confirmed no cross-demo breakage; 20/20 tests passing, typecheck clean. Committed at 6e5bf89.",
+      "costs": "$0 — no paid service used",
+      "notes": "Step 0 refactor extracted shared observability module; TransitionEntry genericized to TransitionEntry<Status> after discovering it was concretely typed to Halo Agent's status union (verified safe by all 10 existing tests passing unchanged). One human-caught gap: test_positive_decision skipped the renewal-signals fixture built to prove differing decisions; fixed by covering all clean fixtures plus new test_decisions_differ_across_scenarios."
+    },
+    {
+      "session_id": 9,
+      "started_at": "Sun Aug 23 2026, ~21:20 local",
+      "ended_at": "Sun Aug 23 2026, ~21:35 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [],
+      "generated_files": [
+        "app/data-context-demo/page.tsx",
+        "src/demos/data-context/DataContextDemo.tsx",
+        "src/demos/shared/TracePanel.tsx",
+        "src/demos/halo-agent/HaloAgentDemo.tsx"
+      ],
+      "human_modified_files": [],
+      "verification": "Raw test/typecheck output reviewed; grep-based aria-labelledby/id pairing verification across both demo files; human Tab-only keyboard pass with 2 screenshots covering positive and partial-data paths. 20/20 tests unchanged, typecheck clean. Committed at 95d7ad1.",
+      "costs": "$0 — no paid service used",
+      "notes": "Shared TracePanel extracted rather than duplicating observability table markup; HaloAgentDemo refactored onto it with zero regression. Human-caught aria-labelledby bug referenced a nonexistent id, leaving the section without an accessible name - a bug class invisible to typecheck/tests/HTML-string checks; fixed and pairing grep-verified in both demos."
+    },
+    {
+      "session_id": 10,
+      "started_at": "Sun Aug 23 2026, ~21:40 local",
+      "ended_at": "Sun Aug 23 2026, ~22:00 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [],
+      "generated_files": [
+        "src/demos/demand-signal/types.ts",
+        "src/demos/demand-signal/fixtures.ts",
+        "src/demos/demand-signal/reducer.ts",
+        "src/demos/demand-signal/reducer.test.ts",
+        "app/demand-signal-demo/page.tsx",
+        "src/demos/demand-signal/DemandSignalDemo.tsx"
+      ],
+      "human_modified_files": [],
+      "verification": "Raw test/typecheck output reviewed each round; human interactive keyboard test with photographic evidence (3 screenshots) covering positive/routed, rejected-with-disabled-controls, and mid-pipeline simulated-failure paths. 29/29 tests passing, typecheck clean. Committed at 2f91b02.",
+      "costs": "$0 — no paid service used",
+      "notes": "Completes IMPLEMENTATION_PLAN.md Phase 3: all three demos have tested state logic, keyboard-verified UI, accessibility compliance, structured observability. One human-caught coverage gap in the reducer checkpoint: SIMULATE_PIPELINE_FAILURE's terminal-state guard tested from only 2 of 4 non-eligible states; extended to full 4-of-4 assertion coverage. UI checkpoint passed review with no issues. VALIDATE branches data-driven inside one action - structural difference from prior demos."
+    },
+    {
+      "session_id": 11,
+      "started_at": "Sun Aug 23 2026, ~22:15 local",
+      "ended_at": "Sun Aug 23 2026, ~22:40 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [],
+      "generated_files": [
+        "app/globals.css",
+        "app/layout.tsx",
+        "app/halo-agent-demo/page.tsx",
+        "app/data-context-demo/page.tsx",
+        "app/demand-signal-demo/page.tsx",
+        "public/brand/DAXVORA_Wordmark_Carbon.svg",
+        "public/icons/DAXVORA_Favicon.ico",
+        "public/icons/DAXVORA_Icon_16.png",
+        "public/icons/DAXVORA_Icon_32.png",
+        "public/icons/DAXVORA_Icon_48.png",
+        "public/icons/DAXVORA_Icon_180.png",
+        "public/icons/DAXVORA_Icon_512.png",
+        "src/components/SiteHeader.tsx",
+        "src/components/DiscoveryCtaStrip.tsx",
+        "src/components/SiteFooter.tsx"
+      ],
+      "human_modified_files": [],
+      "verification": "Typecheck clean before and after fix; 29/29 tests unchanged throughout; token resolution verified via compiled stylesheet (all six --dx-* declarations in served CSS) rather than a live DOM read - neither Node nor Python Playwright available in this environment, so no browser-level check occurred and none is claimed; landmark structure verified via curl of rendered HTML. No keyboard pass this session; site-wide keyboard pass deferred to Phase 7 per IMPLEMENTATION_PLAN.md, not silently skipped. Committed at 61ac4ab.",
+      "costs": "$0 — no paid service used",
+      "notes": "Review-gate findings with attribution: (1) missing Elevation-1 shadow on open mobile menu panel - HUMAN-caught, fixed scoped to .primary-nav[data-open=true] only, verified single box-shadow occurrence in compiled CSS. (2) nested <main><main> on every route - AGENT self-caught during own landmark check via curl; fixed on three demo pages; / duplicate documented as self-resolving when Home placeholder is replaced. (3) active-page nav underline deferred by design (usePathname out of scope for prop-less header spec) - scheduled for Home session. Footer surface treatment (Bone/Carbon wordmark) was an agent-proposed, HUMAN-CONFIRMED decision, flagged rather than decided unilaterally."
+    },
+    {
+      "session_id": 12,
+      "started_at": "Sun Aug 23 2026, ~22:45 local",
+      "ended_at": "Sun Aug 23 2026, ~23:00 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [
+        "design-taste-frontend"
+      ],
+      "generated_files": [
+        "app/page.tsx",
+        "src/components/VisionMarker.tsx",
+        "src/components/SiteHeader.tsx",
+        "app/globals.css"
+      ],
+      "human_modified_files": [],
+      "verification": "Typecheck clean and 29/29 tests through both review rounds; curl-based landmark/heading/aria-current checks; exactly one <main> on / (resolves Session 11 nested-landmark item), one <h1>, VisionMarker confirmed rendered not just defined, aria-current on Home nav link and Method link in the 404 /method shell; two rounds of compiled-CSS/rendered-HTML greps for the Signal fix distinguishing token definition from token usage. Committed at c7caf8c.",
+      "costs": "$0 — no paid service used",
+      "notes": "design-taste-frontend audit (agent-run round) flagged: duplicate contact-intent CTA (next-steps button vs persistent strip) - button removed; hero subtext over ~20-word guideline - tightened 35 to 24 words. Documented deliberate overrides of skill defaults per AGENTS.md conflict order: Arial-only type, no imagery, single light theme, zero decorative motion. Separate human-caught issue post-skill-pass: .status-dot used var(--dx-signal) on a SIMULATED line - Signal reserved for LIVE only; changed to Graphite, verified zero var(--dx-signal) usages while the :root token definition correctly remained. Also self-caught mid-session: CSS edit slip orphaned mobile media-query rules outside @media; caught by brace-balance check before verification re-ran. Home content grounded read-only in reference-docs vision/positioning docx."
+    },
+    {
+      "session_id": 13,
+      "started_at": "Sun Aug 23 2026, ~23:00 local",
+      "ended_at": "Sun Aug 23 2026, ~23:15 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [
+        "design-taste-frontend"
+      ],
+      "generated_files": [
+        "app/services/page.tsx",
+        "app/globals.css"
+      ],
+      "human_modified_files": [],
+      "verification": "Typecheck clean and 29/29 tests unchanged across both rounds; /services returns HTTP 200; exactly one <main>, one <h1>, one real <table>, 6 tbody rows; aria-current fires correctly on Services nav link; zero var(--dx-graphite) inside any table rule in compiled stylesheet after fix. Committed at 407e3e4.",
+      "costs": "$0 — no paid service used",
+      "notes": "Agent self-flagged DESIGN.md Cards-vs-table tension and resolved per section precedence (table wins; stated reasoning, not silently picked). Source docx OFFERS/07 lists 5 engagement models, not PRD's 6 services - each service grounded in its actual matching section (OFFERS/07, METHOD stage 04, SIGNATURE SYSTEM/06, COVERAGE rows, VISION outcomes), mapping recorded explicitly. Human-caught issue: table header border used Graphite instead of binding Mist rules; taste-skill audit did NOT catch it (spec-conformance detail outside its anti-slop scope). Same pass added scroll-container aria-label - human-suggested non-blocking enhancement, recorded separately from the fix. Remaining graphite borders (.btn-secondary, .menu-toggle) deliberately verified as DESIGN.md-mandated component borders, not overlooked instances."
+    },
+    {
+      "session_id": 14,
+      "started_at": "Sun Aug 23 2026, ~23:20 local",
+      "ended_at": "Sun Aug 23 2026, ~23:45 local",
+      "provider": "opencode",
+      "model": "Ox Alpha (opencode/x-preview-f-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [
+        "design-taste-frontend"
+      ],
+      "generated_files": [
+        "app/method/page.tsx",
+        "app/globals.css",
+        "ai-usage.json"
+      ],
+      "human_modified_files": [],
+      "verification": "Typecheck clean and 29/29 tests unchanged; /method returns HTTP 200 with exactly one <main>, one <h1>, one <ol> of exactly 7 stage items each carrying both a 'What DAXVORA does' and an 'Output' line (7 of each confirmed in rendered HTML); aria-current fires correctly on the Method nav link; zero graphite borders inside table rules and zero var(--dx-signal) usages in compiled CSS - no regressions elsewhere.",
+      "costs": "$0 — no paid service used",
+      "notes": "Stage names taken verbatim from source docx METHOD/SYSTEM DESIGN /04 section over PRD paraphrases (mapping recorded in AI_USAGE.md Session 14), same sourcing rule as Services. Self-caught CSS edit slip repeated the Session 12 bug class (styles landed inside an existing media query, orphaning a .table-scroll rule body); caught by brace-balance check before verification re-ran - check now standard for this file. ai-usage.json created this session as a Sessions 1-13 backfill derived strictly from AI_USAGE.md text, committed under human-chosen Option B together with Session 14 disclosure updates per the standing convention that future sessions append their object in the same commit as their AI_USAGE.md update. Known gaps: prompts_or_hashes never captured; timestamps rough-only; model version never logged. No review-gate findings this session; design-taste-frontend applied from prior load with no new flags."
+    }
+  ]
+}

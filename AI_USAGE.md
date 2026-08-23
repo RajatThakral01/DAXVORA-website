@@ -654,3 +654,71 @@ AGENTS.md.
   table-scoped graphite usage (must be zero) from legitimate
   component-scoped graphite usage elsewhere in the file (correctly
   left alone).
+
+## Session 14 — Phase 4: Method page
+
+- **Date / rough time:** Sun Aug 23 2026, ~23:20–23:45 local
+- **Model/provider:** Ox Alpha (opencode/x-preview-f-free), via OpenCode
+- **What was done:**
+  - Built `app/method/page.tsx`: semantic `<ol>` of all 7 stages in
+    order — each stage carrying its number, the source doc's own stage
+    name, a "What DAXVORA does" line (the doc's WORK column,
+    near-verbatim) and an "Output" line (the doc's OUTPUT column,
+    verbatim) — visually distinguished via the Small/meta label style,
+    not run together as one paragraph.
+  - Layout per DESIGN.md §5/§9: single column below 768px, two-column
+    "pair up" at ≥768px, full horizontal seven-across sequence at
+    ≥1440px (mist left-rules replace top rules in horizontal mode).
+    H1 is the doc's own method statement, sentence-style: "Discovery
+    creates the operating model; technology follows it."
+  - Created `ai-usage.json` — structured machine-readable counterpart
+    to this log, backfilled Sessions 1–13 derived strictly from this
+    file's text (13 session objects, schema per assessment brief §10;
+    prompts_or_hashes null across all sessions as a disclosed gap;
+    rough-time strings preserved rather than fabricating ISO
+    precision). Committed under human-chosen Option B alongside this
+    entry.
+- **Sourcing grounding:** all 7 stages use the source docx's METHOD/
+  SYSTEM DESIGN /04 section's own STAGE/WORK/OUTPUT triplets, kept
+  close to verbatim. Stage-name mapping recorded explicitly (source
+  names win over PRD paraphrases, same rule as Services): Founder
+  discovery = PRD discovery; Atomic decomposition = atomic workflow
+  decomposition; Data and context foundation = data/context
+  foundation; Agent and automation build = agent coordination; Phased
+  deployment = phased rollout; Operate and improve = measurement.
+  Opportunity design matches both.
+- **Skills invoked:** `design-taste-frontend` (already loaded this
+  conversation; rules applied before finalizing). No flags raised —
+  checked and cleared: the horizontal step sequence is the binding
+  DESIGN.md-specified component (long-list rule doesn't apply); no
+  duplicate CTA (no buttons added on the page); meta-labels are
+  intra-item data labels, not section eyebrows; explicit mobile
+  collapse; copy near-verbatim from source doc; zero new dependencies.
+  `web-design` and `.opencode/design-references/` NOT invoked.
+- **Self-caught issue (not a review-gate find):** the first CSS
+  insertion repeated the Session 12 slip class — method styles landed
+  inside an existing media query and orphaned a `.table-scroll` rule
+  body (62 vs 63 braces). Caught immediately by brace-balance check
+  before any verification re-ran; repaired deterministically by
+  rewriting the damaged region with base styles restored outside media
+  queries. Second occurrence of this bug class in three CSS-editing
+  sessions; brace-balance check now treated as a standard post-edit
+  step for this file.
+- **Final state:** typecheck clean, 29/29 tests unchanged; `/method`
+  returns HTTP 200 (route no longer 404s); exactly one `<main>`, one
+  `<h1>`; exactly 7 `<li>` stages, each carrying both a "What DAXVORA
+  does" and an "Output" line confirmed in rendered HTML (7 each);
+  `aria-current="page"` fires correctly on the Method nav link; zero
+  graphite borders inside table rules and zero `var(--dx-signal)`
+  usages — no regressions elsewhere.
+- **Generated vs. human-authored:** all code agent-generated; stage
+  content grounded in the human-authored vision/positioning doc,
+  extracted read-only and unmodified; no review-gate findings this
+  session (verification passed first pass after the self-caught CSS
+  repair); ai-usage.json structure followed the human-specified schema
+  exactly.
+- **Verification performed:** typecheck and full test suite; curl-based
+  landmark/heading/list-count/label-presence/aria-current checks on
+  rendered `/method` HTML; regression greps for graphite table borders
+  and Signal usage in compiled CSS; brace-balance check on globals.css
+  after every edit to it.
