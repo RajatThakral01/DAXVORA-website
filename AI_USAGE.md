@@ -300,7 +300,7 @@ AGENTS.md.
   and renewal-signals produce genuinely unequal `decision.action`
   values.
 - **Final state:** 20/20 tests passing across both demo suites,
-  typecheck clean; committed this session (hash recorded below).
+  typecheck clean; committed this session at `6e5bf89`.
 - **Generated vs. human-authored:** all code agent-generated; the
   coverage gap was human-identified via review of test coverage
   against fixture intent, fix agent-implemented.
