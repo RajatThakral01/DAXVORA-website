@@ -414,7 +414,7 @@ AGENTS.md.
   addition to the four step actions — closing the gap to full 4-of-4
   non-eligible-state coverage by assertion.
 - **Final state:** 29/29 tests passing across all three demo suites,
-  typecheck clean; committed this session at [HASH PENDING].
+  typecheck clean; committed this session at `2f91b02`.
 - **Generated vs. human-authored:** all code agent-generated; the
   coverage gap was human-identified via review, agent-implemented the
   fix.
