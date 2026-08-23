@@ -98,3 +98,56 @@ AGENTS.md.
   human-authored originals.
 - **Verification performed:** Diff shown to human before commit; both
   changes reviewed prior to push.
+
+## Session 5 — Phase 2: design specification via web-design skill
+
+- **Date / rough time:** Sun Aug 23 2026, ~16:30–17:10 local
+- **Model/provider:** Ox Alpha (opencode/x-preview-f-free), via OpenCode
+- **Skill invoked:** `web-design` — Phase A (requirements
+  understanding) + Phase B (DESIGN.md generation). Phase C was not
+  run, per human instruction.
+- **What was done:**
+  - Phase A ran against PRD.md, AGENTS.md hard constraints, brand
+    tokens (`daxvora.css` / `daxvora-brand-tokens.json`), the v1
+    hand-authored DESIGN.md draft (treated as strong reference, not a
+    final spec to copy), and `.opencode/design-references/` for spec-
+    structure principles only (inspiration, no content copied).
+  - Computed actual WCAG contrast ratios for all brand-kit color
+    pairings rather than assuming compliance — this surfaced that
+    Signal as text on Bone fails at 1.05:1, now banned explicitly.
+  - Produced DESIGN.md v2.0-draft: restructured to the skill's 9-
+    section template, added RGB alpha-tint policy, full component
+    state matrices, form-input spec (absent from v1 despite the PRD's
+    intake requirement), verbatim "Not connected to client systems"
+    string, spacing/radius/elevation scales, named L1-functional
+    interaction tier.
+  - Flagged one deliberate conflict rather than resolving silently:
+    the skill's default "wow moment"/marquee landing-page guidance
+    overrides against AGENTS.md's evidence-led direction, per
+    AGENTS.md's own conflict-resolution precedence. Human did not
+    overrule.
+- **Generated vs. human-authored:** DESIGN.md v2.x content is agent-
+  generated (Phase A/B), built on the human-authored v1 draft as
+  reference input; what to keep vs. revise was decided by the human
+  through the review gate, not agent-unilateral. PRD.md, AGENTS.md,
+  IMPLEMENTATION_PLAN.md remain human-authored originals.
+- **Human review gate:** two gaps identified against the v1 draft
+  during review — missing binding accessibility section, and missing
+  page-structure guidance for Halo Agent (detail), About, and
+  Contact/discovery-CTA pages (including the persistent site-wide
+  secondary CTA required by PRD §4 and AGENTS.md). Sent back for
+  revision rather than hand-edited.
+- **Revision:** both gaps closed in v2.1-draft (§10 binding
+  accessibility with cross-reference confirming §4 status labels
+  already comply with the no-color-only-meaning rule; three new §5
+  page-structure entries); hard-constraint checklist re-verified
+  against all 5 AGENTS.md hard content constraints; one additional
+  minor cross-reference bullet (focus state → §4 global focus rule)
+  added on human request.
+- **Final state:** frontmatter updated to DESIGN.md v2.1-confirmed,
+  status "confirmed — binding per AGENTS.md source-of-truth order";
+  committed at `ca4d354`.
+- **Verification performed:** human itemized review of all 5 hard
+  content constraints (twice — post-v2.0 and post-revision); contrast
+  ratios verified computationally, not assumed; two gap-and-fix
+  cycles completed before confirmation.
