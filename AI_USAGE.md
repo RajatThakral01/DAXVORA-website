@@ -364,3 +364,69 @@ AGENTS.md.
   demo files; human interactive keyboard test with photographic
   evidence (2 screenshots) covering both the positive and negative/
   partial-data paths.
+
+## Session 10 — Phase 3: Demand-to-Revenue demo (reducer + UI)
+
+- **Date / rough time:** Sun Aug 23 2026, ~21:40–22:00 local
+- **Model/provider:** Ox Alpha (opencode/x-preview-f-free), via OpenCode
+- **What was built — state logic:**
+  - `demandSignalReducer` with chain idle -> validating -> classified
+    -> scored -> attributed -> routed (terminal); signal_rejected
+    reachable only from validating via a data-driven branch inside
+    VALIDATE itself (the one structural difference from the prior two
+    demos, where terminal splits used separate explicit actions);
+    pipeline_failed reachable from any of the four mid-pipeline states.
+  - 4 signal fixtures with PRD §7.5 build evidence as fields: two clean
+    signals producing distinct score bands and routing destinations;
+    one with a genuinely missing required field (email absent from the
+    parsed payload) triggering rejection with a computed specific
+    reason; one low-confidence cold-band signal proving scoring is not
+    binary.
+  - Real payload parsing (`key=value; …` pairs), not fixture-staged
+    outputs; `invalidActionNoOpReason` written correctly from day one
+    with eight accurate per-status messages and no blanket terminal-
+    state claims.
+  - 9 named tests mirroring the established suite shape, including
+    score-band variation assertions and pipeline-failure coverage from
+    all four eligible entry states.
+- **What was built — UI:**
+  - `DemandSignalDemo.tsx` wiring the tested reducer via `useReducer`;
+    raw semantic HTML only; reused the shared TracePanel; five action
+    buttons each honestly disabled outside their valid status (failure
+    button enabled across all four failure-eligible stages).
+  - A distinct "Routing receipt" section consolidating the full
+    resolved run (source, validation, classification, score,
+    attribution, routing destination + reason) into one coherent
+    summary once status reaches routed — the receipt/dashboard state
+    AGENTS.md calls for.
+  - Matched the established aria-labelledby/id pairing pattern
+    correctly on the first attempt (previously a caught bug in Data &
+    Context Foundation) and proactively self-verified pairing across
+    all three demos via grep before submitting.
+- **Human review gate:** one test-coverage gap found in the reducer
+  checkpoint — SIMULATE_PIPELINE_FAILURE's no-op guard was implemented
+  correctly for all terminal states but only tested from 2 of 4 (idle,
+  routed); signal_rejected and pipeline_failed itself were unverified
+  by assertion. Sent back for revision. The UI checkpoint had no
+  issues found on review.
+- **Revision:** `test_boundary_terminal` extended to dispatch
+  SIMULATE_PIPELINE_FAILURE against all three terminal states in
+  addition to the four step actions — closing the gap to full 4-of-4
+  non-eligible-state coverage by assertion.
+- **Final state:** 29/29 tests passing across all three demo suites,
+  typecheck clean; committed this session at [HASH PENDING].
+- **Generated vs. human-authored:** all code agent-generated; the
+  coverage gap was human-identified via review, agent-implemented the
+  fix.
+- **Verification performed:** raw test/typecheck output reviewed each
+  round; human interactive keyboard test with photographic evidence
+  (3 screenshots) covering the positive/routed path, the rejected
+  path with controls correctly disabled, and a mid-pipeline simulated
+  failure at the classified stage — the first time all three of a
+  single demo's terminal outcomes were verified with visual evidence
+  in one pass.
+- **Milestone note:** this completes IMPLEMENTATION_PLAN.md Phase 3 —
+  all three demos (Halo Agent, Data & Context Foundation,
+  Demand-to-Revenue) now have tested state logic, keyboard-verified
+  UI, accessibility compliance, and structured observability, ahead
+  of Phase 4 (marketing pages).
