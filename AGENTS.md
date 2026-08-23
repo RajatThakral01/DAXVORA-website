@@ -146,7 +146,7 @@ specific numeric/behavioral bars the design skill doesn't check:
 
 ## Deployment
 
-Target: [decide and fill in — e.g. Vercel]. Public HTTPS preview
+Target: Vercel. Public HTTPS preview
 required. Document exact environment variables and the commit/version
 ID shipped for evaluation.
 
