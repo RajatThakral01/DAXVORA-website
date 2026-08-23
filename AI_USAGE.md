@@ -151,3 +151,48 @@ AGENTS.md.
   content constraints (twice — post-v2.0 and post-revision); contrast
   ratios verified computationally, not assumed; two gap-and-fix
   cycles completed before confirmation.
+
+## Session 6 — Phase 3: Halo Agent demo state logic
+
+- **Date / rough time:** Sun Aug 23 2026, ~16:45–17:10 local
+- **Model/provider:** Ox Alpha (opencode/x-preview-f-free), via OpenCode
+- **What was done:**
+  - Created a dev-only `package.json` (TypeScript + Vitest as
+    devDependencies, nothing else installed) and minimal strict
+    `tsconfig.json` — no site framework chosen yet, by design;
+    tooling selection was human-confirmed before any file was written.
+  - Implemented `haloAgentReducer` in
+    `src/demos/halo-agent/reducer.ts` as a pure function with typed
+    state/action shapes (`types.ts`), an injectable clock for
+    deterministic tests, structured observability events separate
+    from the transition log, and defined no-op guards for terminal
+    states and invalid dispatches.
+  - Seeded 4 persona fixtures (`fixtures.ts`): 2 clean specialist
+    routes, 1 human-escalation route, 1 deliberately ambiguous with a
+    documented fallback route — each carrying its expected outcome and
+    PRD §7.5 build-evidence note as fixture fields.
+  - Wrote 8 named unit tests (`reducer.test.ts`): positive routing,
+    negative fallback, context persistence, handoff-reason updates,
+    duplicate dispatch, malformed input, boundary/terminal-state
+    behavior, restart-to-initial-snapshot.
+- **Human review gate:** two issues caught before commit, both sent
+  back for revision rather than hand-edited:
+  1. An unreachable ternary branch caused empty-vs-unknown persona-ID
+     failures to report the same incorrect reason string; fixed by
+     reordering the validation check, plus new assertions proving the
+     two reasons now differ.
+  2. `test_boundary_escalation` originally covered only the
+     human_escalation terminal state, not a specialist terminal state,
+     which is what PRD §5.1's boundary criterion actually describes;
+     extended to cover both.
+- **Final state:** 8/8 tests passing, `tsc --noEmit` clean, committed
+  at `dc8809c`.
+- **Generated vs. human-authored:** all code in this session is agent-
+  generated; the two fixes were agent-implemented per human-identified
+  issues, not human-written.
+- **Verification performed:** raw `npm test` / `tsc --noEmit` output
+  reviewed each round (not summarized); staged-file list inspected
+  before commit (7 files, no node_modules strays); human code-read of
+  the reducer identified the unreachable-branch bug independent of
+  test results — tests passed despite the bug, since none asserted on
+  reason text before the fix.
