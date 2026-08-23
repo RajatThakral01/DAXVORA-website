@@ -1,0 +1,9 @@
+:root {
+  --dx-carbon: #0B0D10;
+  --dx-bone: #F4F2EC;
+  --dx-signal: #C8FF3D;
+  --dx-graphite: #343941;
+  --dx-mist: #E6E9ED;
+  --dx-white: #FFFFFF;
+}
+.dx-wordmark { font: 900 1em/1 'Arial Black', Arial, sans-serif; letter-spacing: .035em; }

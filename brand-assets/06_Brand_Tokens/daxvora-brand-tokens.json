@@ -1,0 +1,21 @@
+{
+  "name": "DAXVORA",
+  "tagline": "DATA FIRST. AGENTS NEXT.",
+  "descriptor": "The data and agentic operating layer for business.",
+  "logo_font": "Arial Black",
+  "document_font": "Arial",
+  "colors": {
+    "carbon": "#0B0D10",
+    "bone": "#F4F2EC",
+    "signal": "#C8FF3D",
+    "graphite": "#343941",
+    "mist": "#E6E9ED",
+    "white": "#FFFFFF"
+  },
+  "document_rules": [
+    "Use uppercase micro-labels for document type and metadata.",
+    "Use Signal Lime for navigation and status, never for long text.",
+    "Use one strong lead statement per page.",
+    "Prefer whitespace, rules, and hierarchy over decorative shapes."
+  ]
+}

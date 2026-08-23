@@ -1,0 +1,32 @@
+# OS junk
+.DS_Store
+
+# Dependencies
+node_modules/
+
+# Environment / secrets
+.env
+.env.local
+.env*.local
+
+# Build output
+dist/
+build/
+.next/
+out/
+
+# Logs
+*.log
+
+# Deploy
+.vercel/
+
+# Local-only / vendored tooling internals
+.opencode/design-references/
+.opencode/skills/*/docs/
+.opencode/skills/*/scripts/
+.opencode/skills/*/references/
+
+# Internal DAXVORA source documents — not for public repo
+reference-docs/*.docx
+brand-assets/05_Documents/*.docx
