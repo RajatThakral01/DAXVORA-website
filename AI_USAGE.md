@@ -355,7 +355,7 @@ AGENTS.md.
   screenshots as evidence for both.
 - **Final state:** 20/20 tests passing (unchanged from reducer
   checkpoint), typecheck clean, UI keyboard-verified by human with
-  screenshot evidence, committed at [HASH PENDING].
+  screenshot evidence, committed at `95d7ad1`.
 - **Generated vs. human-authored:** all code agent-generated; the
   aria-labelledby bug was human-identified via code review,
   agent-implemented the fix.
