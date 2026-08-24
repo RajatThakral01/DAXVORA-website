@@ -292,6 +292,39 @@
       "verification": "Typecheck clean and 29/29 tests unchanged; /method returns HTTP 200 with exactly one <main>, one <h1>, one <ol> of exactly 7 stage items each carrying both a 'What DAXVORA does' and an 'Output' line (7 of each confirmed in rendered HTML); aria-current fires correctly on the Method nav link; zero graphite borders inside table rules and zero var(--dx-signal) usages in compiled CSS - no regressions elsewhere.",
       "costs": "$0 — no paid service used",
       "notes": "Stage names taken verbatim from source docx METHOD/SYSTEM DESIGN /04 section over PRD paraphrases (mapping recorded in AI_USAGE.md Session 14), same sourcing rule as Services. Self-caught CSS edit slip repeated the Session 12 bug class (styles landed inside an existing media query, orphaning a .table-scroll rule body); caught by brace-balance check before verification re-ran - check now standard for this file. ai-usage.json created this session as a Sessions 1-13 backfill derived strictly from AI_USAGE.md text, committed under human-chosen Option B together with Session 14 disclosure updates per the standing convention that future sessions append their object in the same commit as their AI_USAGE.md update. Known gaps: prompts_or_hashes never captured; timestamps rough-only; model version never logged. No review-gate findings this session; design-taste-frontend applied from prior load with no new flags."
+    },
+    {
+      "session_id": 15,
+      "started_at": "Sun Aug 24 2026, ~20:30 local",
+      "ended_at": "Mon Aug 25 2026, ~03:10 local",
+      "provider": "opencode",
+      "model": "Muse Spark 1.2 (opencode/muse-spark-1.2-contributor-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [
+        "design-taste-frontend"
+      ],
+      "generated_files": [
+        "DESIGN.md",
+        "app/globals.css",
+        "app/method/page.tsx",
+        "app/services/page.tsx",
+        "app/page.tsx",
+        "app/halo-agent/page.tsx",
+        "app/operating-domains/page.tsx",
+        "app/about/page.tsx",
+        "app/contact/page.tsx",
+        "src/components/Reveal.tsx",
+        "src/components/MethodDiagram.tsx",
+        "src/components/HaloSchematic.tsx",
+        "src/components/DemandPipelineDiagram.tsx",
+        "src/demos/demand-signal/fixtures.ts",
+        "src/demos/demand-signal/reducer.test.ts"
+      ],
+      "human_modified_files": [],
+      "verification": "Typecheck clean and 31/31 tests passing (10 halo-agent + 10 data-context + 11 demand-signal); all 7 marketing routes + 3 demo routes return 200 with exactly one <main> and one <h1> each; Method 7 stages with 7 reveals and both diagram variants present with Mist full-bleed band; Services 6 service rows + 12 domain rows revealed and Demand-to-Revenue pipeline diagram + embedded demo present (2 tables on Services: comparison + trace); Home dot-grid aria-hidden with correct opacity; Halo Agent 8 elements + schematic + demo inline; mailto action present for no-JS fallback with illustrative hello@daxvora.com placeholder (dig NXDOMAIN verified).",
+      "costs": "$0 — no paid service used",
+      "notes": "Model switch: Sessions 1-14 remain Ox Alpha (opencode/x-preview-f-free) as originally logged; Session 15 onward is Muse Spark 1.2 per human clarification that Ox Alpha became unavailable. Human review gate before this commit covered model identity, Reveal flash, Formspree 404, contact mailto placeholder, and the final two Phase 4 close criteria (Demand-to-Revenue host on Services and missing explicit tests for duplicate/retry + threshold tie-breaking). Fix for duplicate/retry added test_duplicate_retry_recognized_as_repeat (second submission after routed recognized as duplicate, not a second receipt) and for boundary added signal-threshold-boundary fixture (80 → hot per documented higher-band rule) with test_boundary_threshold_tie_breaking — both named tests now cover PRD §5.3 explicitly. Demand-to-Revenue pipeline diagram deferred until Services host decision per PRD silent assignment, now hosted on Services as directed. Contact hello@daxvora.com is a human-directed placeholder with no DNS/MX (verified NXDOMAIN), to be documented in Phase 10 cost/limits and plan-vs-built gaps and already reflected in contact hint text. Reveal flash fixed via phase idle→hidden→revealed where already-visible content skips hidden. Self-caught CSS insertion slip in this session’s Method rebuild (same class as prior sessions) caught by brace-balance check."
     }
   ]
 }
