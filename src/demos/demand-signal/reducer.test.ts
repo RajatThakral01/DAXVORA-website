@@ -40,7 +40,7 @@ describe("demandSignalReducer", () => {
     const cleanSignals = signals.filter(
       (s) => s.expectedValidation.valid
     );
-    expect(cleanSignals.length).toBe(3);
+    expect(cleanSignals.length).toBe(4);
 
     for (const signal of cleanSignals) {
       const runOne = driveToRouted(createInitialState(), signal.id);
@@ -312,6 +312,39 @@ describe("demandSignalReducer", () => {
     expect(routedNoOp.events.at(-1)?.decision).toBe(
       "pipeline_failure_simulation_ignored"
     );
+  });
+
+  it("test_duplicate_retry_recognized_as_repeat", () => {
+    const routed = driveToRouted(createInitialState(), "signal-webinar-demo");
+    expect(routed.status).toBe("routed");
+    const receiptBefore = routed.routing;
+    const runIdBefore = routed.runId;
+    const logLengthBefore = routed.transitionLog.length;
+
+    const repeat = demandSignalReducer(routed, {
+      type: "SELECT_SIGNAL",
+      signalId: "signal-webinar-demo",
+    });
+
+    expect(repeat.routing).toEqual(receiptBefore);
+    expect(repeat.runId).toBe(runIdBefore);
+    expect(repeat.transitionLog.length).toBe(logLengthBefore);
+    const dupEvent = repeat.events.at(-1)!;
+    expect(dupEvent.decision).toBe("duplicate_select_ignored");
+    expect(dupEvent.result).toBe("no-op");
+  });
+
+  it("test_boundary_threshold_tie_breaking", () => {
+    const first = driveToRouted(createInitialState(), "signal-threshold-boundary");
+    const second = driveToRouted(createInitialState(), "signal-threshold-boundary");
+
+    expect(first).toEqual(second);
+    expect(first.status).toBe("routed");
+    expect(first.score).toEqual({ value: 80, band: "hot" });
+    expect(first.score!.value).toBe(80);
+    expect(first.score!.band).toBe("hot");
+    const signal = findSignal("signal-threshold-boundary")!;
+    expect(signal.evidence).toContain("threshold value belongs to the higher band");
   });
 
   it("test_restart", () => {

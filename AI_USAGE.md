@@ -722,3 +722,5 @@ AGENTS.md.
   rendered `/method` HTML; regression greps for graphite table borders
   and Signal usage in compiled CSS; brace-balance check on globals.css
   after every edit to it.
+
+> **Note — Model switch (Sun Aug 24 2026):** Ox Alpha (opencode/x-preview-f-free) became unavailable partway through the project. Sessions 1–14 remain as originally logged on Ox Alpha. All sessions from Session 15 onward run on Muse Spark 1.2 (opencode/muse-spark-1.2-contributor-free) via OpenCode.

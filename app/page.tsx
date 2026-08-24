@@ -28,6 +28,7 @@ export default function Home(): JSX.Element {
   return (
     <>
       <section className="home-hero">
+        <div className="dot-grid-motif" aria-hidden="true" />
         <h1>
           DAXVORA designs data and agentic operating systems for lean,
           growing businesses.

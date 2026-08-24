@@ -1,4 +1,7 @@
 import type { JSX } from "react";
+import DemandPipelineDiagram from "../../src/components/DemandPipelineDiagram";
+import Reveal from "../../src/components/Reveal";
+import DemandSignalDemo from "../../src/demos/demand-signal/DemandSignalDemo";
 
 interface ServiceRow {
   name: string;
@@ -78,16 +81,40 @@ export default function ServicesPage(): JSX.Element {
             </tr>
           </thead>
           <tbody>
-            {SERVICES.map((service) => (
-              <tr key={service.name}>
+            {SERVICES.map((service, i) => (
+              <Reveal key={service.name} as="tr" delay={Math.min(i * 60, 300)}>
                 <th scope="row">{service.name}</th>
                 <td>{service.bestFor}</td>
                 <td>{service.deliverable}</td>
-              </tr>
+              </Reveal>
             ))}
           </tbody>
         </table>
       </div>
+
+      <section aria-label="Demand-to-Revenue pipeline">
+        <h2>From signal to routed outcome</h2>
+        <p>
+          Validate → classify → score → attribute → route — the same five
+          steps the interactive demo below walks through with governed data.
+        </p>
+        <DemandPipelineDiagram />
+        <p className="diagram-caption">
+          Five pipeline stages joined by Carbon connector lines; the demo
+          below follows the same sequence and shows the receipt.
+        </p>
+      </section>
+
+      <section aria-label="Interactive Demand-to-Revenue demo">
+        <h2>Try the pipeline</h2>
+        <p>
+          Select a signal to see validation, classification, scoring,
+          attribution, and routing to a receipt. The demo is SIMULATED —
+          seeded fixtures are shown as text, and every run is logged in the
+          trace panel for audit.
+        </p>
+        <DemandSignalDemo />
+      </section>
     </>
   );
 }

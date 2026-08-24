@@ -1,4 +1,6 @@
 import type { JSX } from "react";
+import MethodDiagram from "../../src/components/MethodDiagram";
+import Reveal from "../../src/components/Reveal";
 
 interface MethodStage {
   number: string;
@@ -57,22 +59,26 @@ export default function MethodPage(): JSX.Element {
     <>
       <h1>Discovery creates the operating model; technology follows it.</h1>
 
-      <ol className="method-stages">
-        {STAGES.map((stage) => (
-          <li key={stage.number}>
-            <p className="stage-number">{stage.number}</p>
-            <h2>{stage.name}</h2>
-            <p className="stage-work">
-              <span className="meta-label">What DAXVORA does</span>
-              {stage.work}
-            </p>
-            <p className="stage-output">
-              <span className="meta-label">Output</span>
-              {stage.output}
-            </p>
-          </li>
-        ))}
-      </ol>
+      <MethodDiagram />
+
+      <div className="full-bleed-mist section-band">
+        <ol className="method-stages">
+          {STAGES.map((stage, i) => (
+            <Reveal key={stage.number} as="li" delay={Math.min(i * 60, 480)}>
+              <p className="stage-number">{stage.number}</p>
+              <h2>{stage.name}</h2>
+              <p className="stage-work">
+                <span className="meta-label">What DAXVORA does</span>
+                {stage.work}
+              </p>
+              <p className="stage-output">
+                <span className="meta-label">Output</span>
+                {stage.output}
+              </p>
+            </Reveal>
+          ))}
+        </ol>
+      </div>
     </>
   );
 }

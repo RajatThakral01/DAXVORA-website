@@ -126,6 +126,36 @@ export const signals: SignalFixture[] = [  {
       "but scores into the cold band with single-source attribution — proves " +
       "scoring is not binary (hot-vs-rejected).",
   },
+  {
+    id: "signal-threshold-boundary",
+    label: "Score exactly at hot threshold",
+    source: "webinar_signup",
+    payload:
+      "email=threshold@test.example; company=Threshold Co; intent=demo_request; campaign=q3-webinar; touch=q3-webinar; channel=paid_events",
+    requiredFields: ["email", "intent"],
+    expectedValidation: {
+      valid: true,
+      reason: "all required fields present",
+    },
+    expectedClassification: {
+      category: "demo_request",
+      confidence: "high",
+    },
+    expectedScore: { value: 80, band: "hot" },
+    expectedAttribution: {
+      channel: "paid_events",
+      touchpoints: ["q3-webinar"],
+    },
+    expectedRouting: {
+      destination: "senior_ae_queue",
+      reason: "At-threshold score assigned to higher band per documented rule.",
+    },
+    evidence:
+      "Build evidence (PRD §5.3 boundary tie-breaking): score 80 is exactly at " +
+      "the hot threshold (hot >=80, warm 50-79, cold <50). Documented rule: " +
+      "threshold value belongs to the higher band — 80 → hot, not warm. Verifies " +
+      "tie at threshold is handled deterministically, not arbitrarily.",
+  },
 ];
 
 export function findSignal(signalId: string): SignalFixture | undefined {
