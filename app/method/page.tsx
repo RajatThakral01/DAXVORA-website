@@ -1,6 +1,8 @@
 import type { JSX } from "react";
+import DataContextDiagram from "../../src/components/DataContextDiagram";
 import MethodDiagram from "../../src/components/MethodDiagram";
 import Reveal from "../../src/components/Reveal";
+import DataContextDemo from "../../src/demos/data-context/DataContextDemo";
 
 interface MethodStage {
   number: string;
@@ -79,6 +81,23 @@ export default function MethodPage(): JSX.Element {
           ))}
         </ol>
       </div>
+
+      <section aria-label="Data & Context Foundation demo">
+        <h2>Stage 04 in action — see the governed context being built</h2>
+        <p>
+          Stage 04 connects required systems, normalizes important data, and
+          defines identity, permissions, retention, and shared context —
+          producing the governed context layer. The demo below walks through
+          the same pipeline with seeded sources.
+        </p>
+        <DataContextDiagram />
+        <p className="diagram-caption">
+          Sources → normalize → governed context → decision/action → audit — the
+          same five steps the demo follows; the seven-stage list above remains
+          the accessible text for the Method diagram.
+        </p>
+        <DataContextDemo />
+      </section>
     </>
   );
 }
