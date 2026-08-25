@@ -346,6 +346,26 @@
       "verification": "Re-ran Halo Agent reducer suite 10/10 unchanged and full suite 31/31 unchanged; typecheck clean; curl checks confirm SIMULATED and verbatim 'Not connected to client systems' still present, aria-pressed/aria-live/dt/dd still present, trace panel still has 8 fields in order; compiled CSS grep confirms correct elevation values (3× Elevation 1, 1× Elevation 2) and prefers-reduced-motion guards; manual verification human-performed: keyboard Tab through all controls with visible focus, screen-reader aria-live announcement on transition, and route_failed distinct failure styling without obscuring role=alert.",
       "costs": "$0 — no paid service used",
       "notes": "Visual pass only — no logic touched (reducer/types/tests untouched, re-ran to prove unchanged). Elevation applied exactly per DESIGN v3 §6: selected persona button and active context panel → Elevation 1, active trace panel → Elevation 2. Motion within §7 budget with reduced-motion collapse. route_failed styled distinctly via Carbon left border + Mist background. Trace panel styled as secondary panel but retains all 8 PRD §7.3 fields in order. design-taste-frontend scoped to visual treatment only — no flags raised. Data & Context and Demand-to-Revenue visual passes not started this session per per-demo sequencing. TracePanel.tsx was edited in place at src/demos/shared/TracePanel.tsx (correcting prior session's summary inaccuracy that described it as a path change)."
+    },
+    {
+      "session_id": 17,
+      "started_at": "Tue Aug 26 2026, ~12:20 local",
+      "ended_at": "Tue Aug 26 2026, ~12:30 local",
+      "provider": "opencode",
+      "model": "Muse Spark 1.2 (opencode/muse-spark-1.2-contributor-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [
+        "design-taste-frontend"
+      ],
+      "generated_files": [
+        "app/method/page.tsx",
+        "src/components/DataContextDiagram.tsx"
+      ],
+      "human_modified_files": [],
+      "verification": "Re-ran Data & Context Foundation reducer suite 10/10 unchanged and full suite 31/31 unchanged; typecheck clean; curl checks confirm Method still has exactly one <main>, one <h1>, exactly 7 <li> stages with 7 reveal-item in the <ol>, both diagram-flow variants present for both diagrams (Method + DataContext), aria-current=\"page\" on /method still 1, and new demo section's 'Choose a scenario' present without disturbing existing checks.",
+      "costs": "$0 — no paid service used",
+      "notes": "Placement decision human-directed: Data & Context Foundation demo hosted on Method page next to stage 04. Proposed distinct section after the full 7-stage sequence (not interleaved inside the <ol>) to preserve <ol> semantics (exactly 7 <li>) and the 7-column grid, matching the established host pattern (Halo Agent detail: schematic → 8 dt/dd rows → demo after; Services: table → pipeline diagram → demo after). Built DataContextDiagram (5 boxes: Sources → Normalize → Governed context → Decision/Action → Audit, Mist-bordered rects + Carbon connectors, horizontal/vertical variants aria-hidden) and embedded DataContextDemo inline. State-logic untouched. Visual pass not started this session — raw semantic markup, same as other demos before their visual passes."
     }
   ]
 }
