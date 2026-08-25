@@ -16,74 +16,93 @@ export default function DemandSignalDemo() {
 
   const failureEligible = FAILURE_ELIGIBLE.includes(state.status);
   const isRouted = state.status === "routed";
+  const hasActiveRun = state.status !== "idle";
+  const isFailed =
+    state.status === "pipeline_failed" || state.status === "signal_rejected";
 
   return (
-    <section aria-labelledby="demand-signal-demo-status">
-      <p id="demand-signal-demo-status">
+    <section
+      aria-labelledby="demand-signal-demo-status"
+      className={`demand-signal-demo ${isFailed ? "demand-signal-demo--failed" : ""}`}
+      data-status={state.status}
+    >
+      <p id="demand-signal-demo-status" className="demand-signal-demo__sim-label">
         <strong>SIMULATED</strong> — Not connected to client systems
       </p>
 
-      <fieldset>
+      <fieldset className="demand-signal-fieldset">
         <legend>Choose an inbound signal</legend>
-        {signals.map((signal) => (
-          <button
-            key={signal.id}
-            type="button"
-            aria-pressed={state.signalId === signal.id}
-            onClick={() =>
-              dispatch({ type: "SELECT_SIGNAL", signalId: signal.id })
-            }
-          >
-            {signal.label}
-          </button>
-        ))}
+        <div className="demand-signal-list">
+          {signals.map((signal) => (
+            <button
+              key={signal.id}
+              type="button"
+              className="demand-signal-button"
+              aria-pressed={state.signalId === signal.id}
+              onClick={() =>
+                dispatch({ type: "SELECT_SIGNAL", signalId: signal.id })
+              }
+            >
+              {signal.label}
+            </button>
+          ))}
+        </div>
       </fieldset>
 
-      <p>Status: {state.status}</p>
+      <p className="demand-signal-status">Status: {state.status}</p>
 
-      <button
-        type="button"
-        disabled={state.status !== "validating"}
-        onClick={() => dispatch({ type: "VALIDATE" })}
-      >
-        Validate
-      </button>
+      <div className="demand-signal-actions">
+        <button
+          type="button"
+          className="btn-secondary"
+          disabled={state.status !== "validating"}
+          onClick={() => dispatch({ type: "VALIDATE" })}
+        >
+          Validate
+        </button>
 
-      <button
-        type="button"
-        disabled={state.status !== "classified"}
-        onClick={() => dispatch({ type: "CLASSIFY" })}
-      >
-        Classify
-      </button>
+        <button
+          type="button"
+          className="btn-secondary"
+          disabled={state.status !== "classified"}
+          onClick={() => dispatch({ type: "CLASSIFY" })}
+        >
+          Classify
+        </button>
 
-      <button
-        type="button"
-        disabled={state.status !== "scored"}
-        onClick={() => dispatch({ type: "SCORE" })}
-      >
-        Score
-      </button>
+        <button
+          type="button"
+          className="btn-secondary"
+          disabled={state.status !== "scored"}
+          onClick={() => dispatch({ type: "SCORE" })}
+        >
+          Score
+        </button>
 
-      <button
-        type="button"
-        disabled={state.status !== "attributed"}
-        onClick={() => dispatch({ type: "ATTRIBUTE" })}
-      >
-        Attribute
-      </button>
+        <button
+          type="button"
+          className="btn-secondary"
+          disabled={state.status !== "attributed"}
+          onClick={() => dispatch({ type: "ATTRIBUTE" })}
+        >
+          Attribute
+        </button>
 
-      <button
-        type="button"
-        disabled={!failureEligible}
-        onClick={() => dispatch({ type: "SIMULATE_PIPELINE_FAILURE" })}
-      >
-        Simulate pipeline failure
-      </button>
+        <button
+          type="button"
+          className="btn-secondary"
+          disabled={!failureEligible}
+          onClick={() => dispatch({ type: "SIMULATE_PIPELINE_FAILURE" })}
+        >
+          Simulate pipeline failure
+        </button>
+      </div>
 
       <h2>Signal</h2>
       {state.rawSignal ? (
-        <dl>
+        <dl
+          className={`demand-signal-panel ${isFailed ? "demand-signal-panel--failed" : ""}`}
+        >
           <dt>Source</dt>
           <dd>{state.rawSignal.source}</dd>
           <dt>Payload</dt>
@@ -96,7 +115,9 @@ export default function DemandSignalDemo() {
       {state.validation && (
         <>
           <h2>Validation</h2>
-          <dl>
+          <dl
+            className={`demand-signal-panel ${isFailed ? "demand-signal-panel--failed" : ""}`}
+          >
             <dt>Outcome</dt>
             <dd>{state.validation.valid ? "Valid" : "Rejected"}</dd>
             <dt>Reason</dt>
@@ -108,7 +129,9 @@ export default function DemandSignalDemo() {
       {state.classification && (
         <>
           <h2>Classification</h2>
-          <dl>
+          <dl
+            className={`demand-signal-panel ${isFailed ? "demand-signal-panel--failed" : ""}`}
+          >
             <dt>Category</dt>
             <dd>{state.classification.category}</dd>
             <dt>Confidence</dt>
@@ -120,7 +143,9 @@ export default function DemandSignalDemo() {
       {state.score && (
         <>
           <h2>Score</h2>
-          <dl>
+          <dl
+            className={`demand-signal-panel ${isFailed ? "demand-signal-panel--failed" : ""}`}
+          >
             <dt>Value</dt>
             <dd>{state.score.value}</dd>
             <dt>Band</dt>
@@ -132,7 +157,9 @@ export default function DemandSignalDemo() {
       {state.attribution && (
         <>
           <h2>Attribution</h2>
-          <dl>
+          <dl
+            className={`demand-signal-panel ${isFailed ? "demand-signal-panel--failed" : ""}`}
+          >
             <dt>Channel</dt>
             <dd>{state.attribution.channel}</dd>
             <dt>Touchpoints</dt>
@@ -148,7 +175,10 @@ export default function DemandSignalDemo() {
       )}
 
       {isRouted && state.routing && (
-        <section aria-labelledby="demand-routing-receipt-heading">
+        <section
+          aria-labelledby="demand-routing-receipt-heading"
+          className={`demand-signal-receipt ${hasActiveRun ? "demand-signal-receipt--active" : ""}`}
+        >
           <h2 id="demand-routing-receipt-heading">Routing receipt</h2>
           <dl>
             <dt>Signal source</dt>
@@ -180,9 +210,13 @@ export default function DemandSignalDemo() {
         </section>
       )}
 
-      {state.error && <p role="alert">Error: {state.error}</p>}
+      {state.error && (
+        <p role="alert" className="demand-signal-error">
+          Error: {state.error}
+        </p>
+      )}
 
-      <p aria-live="polite">
+      <p aria-live="polite" className="demand-signal-live-region">
         {state.status === "idle"
           ? "No signal selected yet."
           : isRouted
@@ -194,7 +228,7 @@ export default function DemandSignalDemo() {
                 : `Current stage: ${state.status}`}
       </p>
 
-      <button type="button" onClick={() => dispatch({ type: "RESTART" })}>
+      <button type="button" className="btn-secondary" onClick={() => dispatch({ type: "RESTART" })}>
         Restart
       </button>
 

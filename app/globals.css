@@ -862,6 +862,184 @@ form textarea:focus-visible {
   color: var(--dx-graphite);
 }
 
+.demand-signal-demo {
+  display: grid;
+  gap: 24px;
+}
+
+.demand-signal-demo__sim-label {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+  padding: 6px 12px;
+  border: 1px solid var(--dx-mist);
+  border-radius: 2px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dx-graphite);
+  background: transparent;
+}
+
+.demand-signal-fieldset {
+  border: 1px solid var(--dx-mist);
+  border-radius: 2px;
+  padding: 16px;
+  margin: 0;
+}
+
+.demand-signal-fieldset legend {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dx-graphite);
+  padding: 0 8px;
+}
+
+.demand-signal-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.demand-signal-button {
+  min-height: 44px;
+  padding: 12px 16px;
+  border: 1px solid var(--dx-graphite);
+  border-radius: 2px;
+  background: transparent;
+  color: var(--dx-graphite);
+  font-family: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition:
+    background-color 200ms ease-out,
+    border-color 200ms ease-out,
+    color 200ms ease-out,
+    box-shadow 200ms ease-out,
+    transform 150ms ease-out;
+}
+
+.demand-signal-button:hover {
+  background: var(--dx-mist);
+  border-color: var(--dx-graphite);
+}
+
+.demand-signal-button:active {
+  transform: translateY(1px);
+}
+
+.demand-signal-button[aria-pressed="true"] {
+  background: var(--dx-mist);
+  border-color: var(--dx-carbon);
+  color: var(--dx-carbon);
+  box-shadow: 0 2px 8px rgb(11 13 16 / 0.08);
+}
+
+.demand-signal-status {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dx-graphite);
+}
+
+.demand-signal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.demand-signal-panel {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 16px 24px;
+  border: 1px solid var(--dx-mist);
+  border-radius: 2px;
+  background: var(--dx-bone);
+  transition:
+    opacity 200ms ease-out,
+    transform 200ms ease-out,
+    box-shadow 200ms ease-out,
+    border-color 200ms ease-out,
+    background-color 200ms ease-out;
+}
+
+.demand-signal-panel--failed {
+  border-left: 2px solid var(--dx-carbon);
+  background: var(--dx-white);
+}
+
+.demand-signal-panel dt {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dx-graphite);
+  margin: 0;
+}
+
+.demand-signal-panel dd {
+  margin: 0 0 8px;
+  color: var(--dx-carbon);
+}
+
+.demand-signal-receipt {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 16px 24px;
+  border: 1px solid var(--dx-mist);
+  border-radius: 2px;
+  background: var(--dx-bone);
+  transition:
+    opacity 200ms ease-out,
+    transform 200ms ease-out,
+    box-shadow 200ms ease-out,
+    border-color 200ms ease-out,
+    background-color 200ms ease-out;
+}
+
+.demand-signal-receipt--active {
+  box-shadow: 0 2px 8px rgb(11 13 16 / 0.08);
+}
+
+.demand-signal-receipt dt {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dx-graphite);
+  margin: 0;
+}
+
+.demand-signal-receipt dd {
+  margin: 0 0 8px;
+  color: var(--dx-carbon);
+}
+
+.demand-signal-error {
+  margin: 0;
+  padding: 12px 16px;
+  border-left: 2px solid var(--dx-carbon);
+  background: var(--dx-mist);
+  border-radius: 2px;
+  font-size: 0.875rem;
+  color: var(--dx-carbon);
+}
+
+.demand-signal-live-region {
+  margin: 0;
+  min-height: 1.5em;
+  font-size: 0.8125rem;
+  color: var(--dx-graphite);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .halo-persona-button,
   .halo-context-panel,
@@ -869,7 +1047,11 @@ form textarea:focus-visible {
   .halo-error,
   .data-context-scenario-button,
   .data-context-panel,
-  .data-context-error {
+  .data-context-error,
+  .demand-signal-button,
+  .demand-signal-panel,
+  .demand-signal-receipt,
+  .demand-signal-error {
     transition: none;
   }
 }
