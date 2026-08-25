@@ -366,6 +366,26 @@
       "verification": "Re-ran Data & Context Foundation reducer suite 10/10 unchanged and full suite 31/31 unchanged; typecheck clean; curl checks confirm Method still has exactly one <main>, one <h1>, exactly 7 <li> stages with 7 reveal-item in the <ol>, both diagram-flow variants present for both diagrams (Method + DataContext), aria-current=\"page\" on /method still 1, and new demo section's 'Choose a scenario' present without disturbing existing checks.",
       "costs": "$0 — no paid service used",
       "notes": "Placement decision human-directed: Data & Context Foundation demo hosted on Method page next to stage 04. Proposed distinct section after the full 7-stage sequence (not interleaved inside the <ol>) to preserve <ol> semantics (exactly 7 <li>) and the 7-column grid, matching the established host pattern (Halo Agent detail: schematic → 8 dt/dd rows → demo after; Services: table → pipeline diagram → demo after). Built DataContextDiagram (5 boxes: Sources → Normalize → Governed context → Decision/Action → Audit, Mist-bordered rects + Carbon connectors, horizontal/vertical variants aria-hidden) and embedded DataContextDemo inline. State-logic untouched. Visual pass not started this session — raw semantic markup, same as other demos before their visual passes."
+    },
+    {
+      "session_id": 18,
+      "started_at": "Tue Aug 26 2026, ~12:30 local",
+      "ended_at": "Tue Aug 26 2026, ~12:35 local",
+      "provider": "opencode",
+      "model": "Muse Spark 1.2 (opencode/muse-spark-1.2-contributor-free)",
+      "version": null,
+      "prompts_or_hashes": null,
+      "skills_tools": [
+        "design-taste-frontend"
+      ],
+      "generated_files": [
+        "app/globals.css",
+        "src/demos/data-context/DataContextDemo.tsx"
+      ],
+      "human_modified_files": [],
+      "verification": "Re-ran Data & Context Foundation reducer suite 10/10 unchanged and full suite 31/31 unchanged; typecheck clean; next build compiles (13 static routes, /method 544 B); compiled-CSS grep by selector confirms 5× Elevation 1 by exact rule (.primary-nav[data-open=\"true\"], .halo-persona-button[aria-pressed=\"true\"], .halo-context-panel--active, .data-context-scenario-button[aria-pressed=\"true\"], .data-context-panel--active) and 1× Elevation 2 by .halo-trace-panel--active, with 2 prefers-reduced-motion guards; markup confirms SIMULATED verbatim, aria-pressed/aria-live/dt/dd, Included/Excluded/Awaiting normalization spans, and 8-field trace panel still present in order.",
+      "costs": "$0 — no paid service used",
+      "notes": "Visual pass only — no logic touched (reducer/types/tests untouched, re-ran to prove unchanged). Elevation applied exactly per DESIGN v3 §6 with 5 Elevation 1 selectors listed by rule: .primary-nav[data-open=\"true\"] (mobile menu), .halo-persona-button[aria-pressed=\"true\"] + .halo-context-panel--active (Halo Agent, Session 16), .data-context-scenario-button[aria-pressed=\"true\"] + .data-context-panel--active (Data & Context, this session); Elevation 2 remains single .halo-trace-panel--active shared via TracePanel.tsx across all demos. Motion within §7 budget with reduced-motion collapse covering new data-context classes. source_failed styled via Carbon left border + Mist/White backgrounds matching route_failed pattern. design-taste-frontend scoped to visual treatment only — no flags. Demand-to-Revenue visual pass not started this session per your instruction. Manual keyboard/screen-reader/source_failed pass to be human-performed before commit verification is considered complete — placeholder in AI_USAGE Session 18."
     }
   ]
 }
