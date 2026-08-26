@@ -43,7 +43,7 @@ export default function SiteHeader(): JSX.Element {
         </nav>
 
         {/* Desktop CTA */}
-        <Link href="/contact" className="primary-nav__cta" aria-label="Book a discovery call">
+        <Link href="/contact" className="primary-nav__cta">
           Talk to us
         </Link>
 

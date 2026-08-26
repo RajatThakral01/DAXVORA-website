@@ -33,6 +33,18 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <a href="#main-content" className="skip-nav">Skip to main content</a>
+        <noscript>
+          <div style={{
+            background: "var(--dx-mist)",
+            borderBottom: "1px solid var(--dx-graphite)",
+            padding: "0.75rem var(--page-pad)",
+            textAlign: "center",
+            fontSize: "0.875rem",
+            color: "var(--dx-graphite)",
+          }}>
+            JavaScript is required for interactive demos. All content pages are fully readable without JavaScript.
+          </div>
+        </noscript>
         <SiteHeader />
         <main id="main-content">{children}</main>
         <SiteFooter />

@@ -392,7 +392,7 @@ h4 {
   font-size: 0.6875rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgb(255 255 255 / 0.4);
+  color: rgb(255 255 255 / 0.55);
   margin-bottom: 1rem;
 }
 
@@ -482,7 +482,7 @@ h4 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--dx-signal);
+  background: var(--dx-graphite);
   flex-shrink: 0;
 }
 
@@ -611,7 +611,7 @@ h4 {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--dx-signal);
+  background: var(--dx-graphite);
   flex-shrink: 0;
 }
 
@@ -1185,11 +1185,11 @@ h4 {
   font-size: 1.5rem;
   line-height: 1;
   letter-spacing: -0.03em;
-  color: var(--dx-signal);
+  color: var(--dx-graphite);
 }
 
 .domain-tile--start .domain-tile__number {
-  color: var(--dx-signal);
+  color: var(--dx-graphite);
 }
 
 .domain-tile__name {
