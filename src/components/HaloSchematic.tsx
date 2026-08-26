@@ -1,49 +1,133 @@
 import type { JSX } from "react";
 
 export default function HaloSchematic(): JSX.Element {
+  // Brand tokens for SVG
+  const C = {
+    signal: "#C8FF3D",
+    white: "#FFFFFF",
+    carbon: "#0B0D10",
+    graphite: "#343941",
+    mistLight: "rgba(255, 255, 255, 0.12)",
+    graphiteLight: "rgba(255, 255, 255, 0.4)",
+  };
+
+  const W = 800;
+  const H = 400;
+
+  // Left column (3 cards)
+  const leftY1 = 96;
+  const leftY2 = 176;
+  const leftY3 = 256;
+  
+  // Right column (4 cards)
+  const rightY1 = 52;
+  const rightY2 = 132;
+  const rightY3 = 212;
+  const rightY4 = 292;
+
+  // Center node
+  const centerY = 160;
+
+  // Connector endpoints
+  const centerLeftX = 290;
+  const centerRightX = 510;
+
   return (
-    <div aria-hidden="true">
+    <div aria-hidden="true" style={{ width: "100%", overflowX: "auto", paddingBottom: "1rem" }}>
       <svg
-        className="diagram-schematic"
-        viewBox="0 0 720 320"
-        width="100%"
-        height="320"
+        viewBox={`0 0 ${W} ${H}`}
+        style={{ minWidth: "700px", display: "block", margin: "0 auto" }}
         role="presentation"
       >
-        <rect x={260} y={120} width={200} height={80} rx={2} fill="var(--dx-bone)" stroke="var(--dx-carbon)" strokeWidth={1.5} />
-        <text x={360} y={150} textAnchor="middle">Shared context</text>
-        <text x={360} y={170} textAnchor="middle" fontSize="11" fill="var(--dx-graphite)">Halo memory</text>
+        <defs>
+          <marker id="arrow-halo" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill={C.mistLight} />
+          </marker>
+          <marker id="arrow-halo-signal" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill={C.signal} />
+          </marker>
+        </defs>
 
-        <rect x={16} y={40} width={160} height={44} rx={2} fill="var(--dx-bone)" stroke="var(--dx-mist)" />
-        <text x={96} y={66} textAnchor="middle">Voice / SMS</text>
+        {/* CONNECTORS (LEFT TO CENTER) */}
+        <line x1={200} y1={leftY1 + 24} x2={centerLeftX} y2={centerY + 20} stroke={C.mistLight} strokeWidth={1.5} markerEnd="url(#arrow-halo)" />
+        <line x1={200} y1={leftY2 + 24} x2={centerLeftX} y2={centerY + 40} stroke={C.mistLight} strokeWidth={1.5} markerEnd="url(#arrow-halo)" />
+        <line x1={200} y1={leftY3 + 24} x2={centerLeftX} y2={centerY + 60} stroke={C.mistLight} strokeWidth={1.5} markerEnd="url(#arrow-halo)" />
 
-        <rect x={16} y={100} width={160} height={44} rx={2} fill="var(--dx-bone)" stroke="var(--dx-mist)" />
-        <text x={96} y={126} textAnchor="middle">Email / Chat</text>
+        {/* CONNECTORS (CENTER TO RIGHT) */}
+        <line x1={centerRightX} y1={centerY + 10} x2={590} y2={rightY1 + 24} stroke={C.mistLight} strokeWidth={1.5} markerEnd="url(#arrow-halo)" />
+        <line x1={centerRightX} y1={centerY + 30} x2={590} y2={rightY2 + 24} stroke={C.mistLight} strokeWidth={1.5} markerEnd="url(#arrow-halo)" />
+        <line x1={centerRightX} y1={centerY + 50} x2={590} y2={rightY3 + 24} stroke={C.mistLight} strokeWidth={1.5} markerEnd="url(#arrow-halo)" />
+        <line x1={centerRightX} y1={centerY + 70} x2={590} y2={rightY4 + 28} stroke={C.signal} strokeWidth={1.5} strokeDasharray="6 4" markerEnd="url(#arrow-halo-signal)" />
 
-        <rect x={16} y={220} width={160} height={44} rx={2} fill="var(--dx-bone)" stroke="var(--dx-mist)" />
-        <text x={96} y={246} textAnchor="middle">CRM / Queue</text>
+        {/* --- CARDS --- */}
 
-        <line x1={176} y1={62} x2={260} y2={140} stroke="var(--dx-carbon)" strokeWidth={1} />
-        <line x1={176} y1={122} x2={260} y2={150} stroke="var(--dx-carbon)" strokeWidth={1} />
-        <line x1={176} y1={242} x2={260} y2={180} stroke="var(--dx-carbon)" strokeWidth={1} />
+        {/* LEFT COLUMN: Inputs */}
+        <g>
+          {/* Voice/SMS */}
+          <rect x={40} y={leftY1} width={160} height={48} rx={2} fill={C.graphite} />
+          <rect x={40} y={leftY1} width={160} height={2} rx={1} fill={C.white} />
+          <text x={120} y={leftY1 + 28} textAnchor="middle" fill={C.white} fontSize={12} fontWeight={700} fontFamily="Arial, Helvetica, sans-serif" letterSpacing={0.2}>
+            Voice / SMS
+          </text>
 
-        <rect x={544} y={20} width={160} height={44} rx={2} fill="var(--dx-bone)" stroke="var(--dx-mist)" />
-        <text x={624} y={46} textAnchor="middle">Sales</text>
+          {/* Email/Chat */}
+          <rect x={40} y={leftY2} width={160} height={48} rx={2} fill={C.graphite} />
+          <rect x={40} y={leftY2} width={160} height={2} rx={1} fill={C.white} />
+          <text x={120} y={leftY2 + 28} textAnchor="middle" fill={C.white} fontSize={12} fontWeight={700} fontFamily="Arial, Helvetica, sans-serif" letterSpacing={0.2}>
+            Email / Chat
+          </text>
 
-        <rect x={544} y={80} width={160} height={44} rx={2} fill="var(--dx-bone)" stroke="var(--dx-mist)" />
-        <text x={624} y={106} textAnchor="middle">Support</text>
+          {/* CRM/Queue */}
+          <rect x={40} y={leftY3} width={160} height={48} rx={2} fill={C.graphite} />
+          <rect x={40} y={leftY3} width={160} height={2} rx={1} fill={C.white} />
+          <text x={120} y={leftY3 + 28} textAnchor="middle" fill={C.white} fontSize={12} fontWeight={700} fontFamily="Arial, Helvetica, sans-serif" letterSpacing={0.2}>
+            CRM / Queue
+          </text>
+        </g>
 
-        <rect x={544} y={140} width={160} height={44} rx={2} fill="var(--dx-bone)" stroke="var(--dx-mist)" />
-        <text x={624} y={166} textAnchor="middle">Billing</text>
+        {/* CENTER: Halo Agent */}
+        <g>
+          <rect x={300} y={centerY} width={200} height={80} rx={4} fill={C.graphite} stroke={C.signal} strokeWidth={2} />
+          <text x={400} y={centerY + 36} textAnchor="middle" fill={C.white} fontSize={14} fontWeight={900} fontFamily="Arial, Helvetica, sans-serif" letterSpacing={0.2}>
+            Shared context
+          </text>
+          <text x={400} y={centerY + 58} textAnchor="middle" fill={C.signal} fontSize={11} fontWeight={700} fontFamily="Arial, Helvetica, sans-serif" letterSpacing={0.5} style={{ textTransform: "uppercase" }}>
+            Halo Memory
+          </text>
+        </g>
 
-        <rect x={544} y={220} width={160} height={52} rx={2} fill="var(--dx-white)" stroke="var(--dx-carbon)" strokeWidth={1} strokeDasharray="6 4" />
-        <text x={624} y={244} textAnchor="middle">Human escalation</text>
-        <text x={624} y={262} textAnchor="middle" fontSize="10" fill="var(--dx-graphite)">terminal</text>
+        {/* RIGHT COLUMN: Outputs */}
+        <g>
+          {/* Sales */}
+          <rect x={600} y={rightY1} width={160} height={48} rx={2} fill={C.graphite} />
+          <rect x={600} y={rightY1} width={160} height={2} rx={1} fill={C.white} />
+          <text x={680} y={rightY1 + 28} textAnchor="middle" fill={C.white} fontSize={12} fontWeight={700} fontFamily="Arial, Helvetica, sans-serif" letterSpacing={0.2}>
+            Sales
+          </text>
 
-        <line x1={460} y1={140} x2={544} y2={42} stroke="var(--dx-carbon)" strokeWidth={1} />
-        <line x1={460} y1={150} x2={544} y2={102} stroke="var(--dx-carbon)" strokeWidth={1} />
-        <line x1={460} y1={160} x2={544} y2={162} stroke="var(--dx-carbon)" strokeWidth={1} />
-        <line x1={460} y1={170} x2={544} y2={242} stroke="var(--dx-carbon)" strokeWidth={1} strokeDasharray="6 4" />
+          {/* Support */}
+          <rect x={600} y={rightY2} width={160} height={48} rx={2} fill={C.graphite} />
+          <rect x={600} y={rightY2} width={160} height={2} rx={1} fill={C.white} />
+          <text x={680} y={rightY2 + 28} textAnchor="middle" fill={C.white} fontSize={12} fontWeight={700} fontFamily="Arial, Helvetica, sans-serif" letterSpacing={0.2}>
+            Support
+          </text>
+
+          {/* Billing */}
+          <rect x={600} y={rightY3} width={160} height={48} rx={2} fill={C.graphite} />
+          <rect x={600} y={rightY3} width={160} height={2} rx={1} fill={C.white} />
+          <text x={680} y={rightY3 + 28} textAnchor="middle" fill={C.white} fontSize={12} fontWeight={700} fontFamily="Arial, Helvetica, sans-serif" letterSpacing={0.2}>
+            Billing
+          </text>
+
+          {/* Human escalation */}
+          <rect x={600} y={rightY4} width={160} height={56} rx={2} fill="transparent" stroke={C.signal} strokeWidth={1.5} strokeDasharray="4 2" />
+          <text x={680} y={rightY4 + 26} textAnchor="middle" fill={C.signal} fontSize={12} fontWeight={900} fontFamily="Arial, Helvetica, sans-serif" letterSpacing={0.2}>
+            Human escalation
+          </text>
+          <text x={680} y={rightY4 + 44} textAnchor="middle" fill={C.graphiteLight} fontSize={10} fontWeight={700} fontFamily="Arial, Helvetica, sans-serif" letterSpacing={0.5} style={{ textTransform: "uppercase" }}>
+            Terminal
+          </text>
+        </g>
       </svg>
     </div>
   );

@@ -844,3 +844,18 @@ AGENTS.md.
   - Text/announcement differentiation between the two failure modes: confirmed clear which failure occurred (signal_rejected vs. pipeline_failed) from the status text and aria-live announcement alone — the identical visual treatment reads fine given the text carries the distinction as intended.
 - **Generated vs. human-authored:** all code agent-generated; visual treatment choices are agent-implemented within DESIGN v3 §6/§7 bounds; manual verification results above are human-performed and logged verbatim as provided, not agent-simulated.
 - **Verification performed:** re-ran Demand-to-Revenue reducer suite — 11/11 unchanged; full suite — 31/31 unchanged (Halo Agent 10 + data-context 10 + demand-signal 11); `typecheck` clean; `next build` compiles (13 static routes, `/services` 543 B / 108 kB first load); compiled-CSS grep by selector confirms 7× Elevation 1 by exact rule (`primary-nav[data-open="true"]`, `halo-persona-button[aria-pressed="true"]`, `halo-context-panel--active`, `data-context-scenario-button[aria-pressed="true"]`, `data-context-panel--active`, `demand-signal-button[aria-pressed="true"]`, `demand-signal-receipt--active`) and 1× Elevation 2 by `.halo-trace-panel--active`, with 2 `prefers-reduced-motion` guards extended to cover new `demand-signal-*` classes and no third block created; markup checks confirm `SIMULATED` and verbatim string still present, `aria-pressed`/`aria-live`/`dt/dd`/`Routing receipt` still present, and trace panel still has 8 fields in order.
+
+## Session 20 — Phase 6: Full Site Aesthetic Transformation & Layout Rebuild
+
+- **Date / rough time:** Wed Aug 26 2026, ~09:00–17:00 local
+- **Model/provider:** Antigravity (google-deepmind)
+- **Skills invoked:** `taste-skill` (referenced for premium, non-slop design standards)
+- **What was done:**
+  - **Planning & Strategy:** Created a comprehensive `IMPLEMENTATION_PLAN.md` to completely transform the website's visual identity, targeting a premium, dynamic, "anti-slop" aesthetic strictly using authorized brand assets (Carbon, Graphite, Signal Lime, Bone, White).
+  - **Global Styling:** Overhauled `app/globals.css` with refined typography, dynamic hover micro-animations, glassmorphism-inspired borders, and a rigorous spacing system.
+  - **Page-by-Page Rebuild:** Systematically rebuilt the styling and layout for every route: Home (`page.tsx`), Method (`method/page.tsx`), Services (`services/page.tsx`), Halo Agent (`halo-agent/page.tsx`), Operating Domains (`operating-domains/page.tsx`), About (`about/page.tsx`), and Contact (`contact/page.tsx`).
+  - **Component Upgrades:** Upgraded key shared components (`SiteHeader`, `SiteFooter`, `DiscoveryCtaStrip`, `DomainTile`, `Reveal`) for visual cohesion.
+  - **Demo Styling:** Extracted a dedicated `app/demos.css` to render `DataContextDemo`, `DemandSignalDemo`, and `HaloAgentDemo` with a distinct, premium "dark-mode terminal" appearance.
+  - **Diagram Symmetry:** Redesigned `DemandPipelineDiagram` to a vertical layout, removed redundant surrounding text on the Services page, and enforced strict border/color symmetry in `HomeOverviewDiagram` and `DataContextDiagram`.
+  - **Grid Fixes:** Resolved CSS Grid flex-expansion issues globally by injecting explicit `height: 100%` into animation `Reveal` wrappers, ensuring uniform card heights and perfect 3-column / auto-fit symmetries.
+- **Verification performed:** 31/31 tests passing; `typecheck` clean; repeated human visual inspections via screenshots driving iterative refinements to box-models, grid gaps, and border alignments across all pages.

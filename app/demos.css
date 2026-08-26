@@ -1,0 +1,346 @@
+/* 
+  demos.css
+  Shared styles for interactive demo components (Method, Services, Halo Agent)
+*/
+
+/* ── DEMO CONTAINER ── */
+.data-context-demo,
+.demand-signal-demo,
+.halo-demo {
+  background: var(--dx-carbon);
+  color: var(--dx-bone);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  font-family: var(--font-sans);
+  position: relative;
+}
+
+.demand-signal-demo--failed,
+.data-context-demo--failed,
+.halo-demo--failed {
+  border: 1px solid rgba(255, 100, 100, 0.4);
+}
+
+/* ── SIMULATED BADGE ── */
+.data-context-demo__sim-label,
+.demand-signal-demo__sim-label,
+.halo-demo__sim-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--dx-bone);
+  opacity: 0.6;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.data-context-demo__sim-label strong,
+.demand-signal-demo__sim-label strong,
+.halo-demo__sim-label strong {
+  color: var(--dx-signal);
+  opacity: 1;
+}
+
+/* ── SCENARIO SELECTOR (FIELDSET) ── */
+.data-context-fieldset,
+.demand-signal-fieldset,
+.halo-persona-fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 1.5rem 0;
+}
+
+.data-context-fieldset legend,
+.demand-signal-fieldset legend,
+.halo-persona-fieldset legend {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 0.75rem;
+}
+
+/* Lists */
+.data-context-scenario-list,
+.demand-signal-list,
+.halo-persona-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Scenario Buttons */
+.data-context-scenario-button,
+.demand-signal-button,
+.halo-persona-button {
+  text-align: left;
+  background: var(--dx-graphite);
+  color: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: calc(var(--radius) / 2);
+  padding: 0.875rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.data-context-scenario-button:hover,
+.demand-signal-button:hover,
+.halo-persona-button:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--dx-white);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.data-context-scenario-button[aria-pressed="true"],
+.demand-signal-button[aria-pressed="true"],
+.halo-persona-button[aria-pressed="true"] {
+  background: var(--dx-graphite);
+  color: var(--dx-white);
+  border-color: var(--dx-signal);
+}
+
+.data-context-scenario-button[aria-pressed="true"]::before,
+.demand-signal-button[aria-pressed="true"]::before,
+.halo-persona-button[aria-pressed="true"]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--dx-signal);
+}
+
+/* ── STATUS & LIVE REGIONS ── */
+.data-context-status,
+.demand-signal-status,
+.halo-status {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--dx-signal);
+  margin-bottom: 1rem;
+}
+
+.data-context-live-region,
+.demand-signal-live-region,
+.halo-live-region {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  color: var(--dx-bone);
+  margin-top: 1.5rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: calc(var(--radius) / 2);
+}
+
+/* ── ACTIONS ── */
+.data-context-actions,
+.demand-signal-actions,
+.halo-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+/* .btn-secondary is used across all demos */
+.btn-secondary {
+  background: var(--dx-white);
+  color: var(--dx-carbon);
+  border: none;
+  border-radius: 999px;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:disabled {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.3);
+  cursor: not-allowed;
+}
+
+.btn-secondary:not(:disabled):hover {
+  background: var(--dx-signal);
+}
+
+/* ── PANELS & RECEIPTS (dl, dt, dd) ── */
+.demand-signal-panel,
+.halo-context-panel,
+.demand-signal-receipt {
+  background: var(--dx-graphite);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: calc(var(--radius) / 2);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.demand-signal-demo h2,
+.data-context-demo h2,
+.halo-demo h2,
+.demand-signal-receipt h2 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.demand-signal-demo dl dt,
+.halo-demo dl dt,
+.demand-signal-receipt dl dt {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 0.25rem;
+}
+
+.demand-signal-demo dl dd,
+.halo-demo dl dd,
+.demand-signal-receipt dl dd {
+  font-size: 0.875rem;
+  color: var(--dx-white);
+  margin-left: 0;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.demand-signal-demo dl dd:last-child,
+.halo-demo dl dd:last-child,
+.demand-signal-receipt dl dd:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+/* ── DATA CONTEXT SOURCES (UL) ── */
+.data-context-demo ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.data-context-demo ul li {
+  background: var(--dx-graphite);
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: calc(var(--radius) / 2);
+  font-size: 0.875rem;
+  border-left: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+.data-context-demo ul li span {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--dx-signal);
+}
+
+/* ── ERRORS ── */
+.demand-signal-error,
+.halo-error {
+  color: #ff6b6b;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  margin: 1rem 0;
+  padding: 0.75rem;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: calc(var(--radius) / 2);
+}
+
+/* ── TRACE PANEL ── */
+.trace-panel {
+  margin-top: 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 1rem;
+}
+
+.trace-panel__toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  cursor: pointer;
+  padding: 0.5rem 0;
+  width: 100%;
+  text-align: left;
+}
+
+.trace-panel__toggle:hover {
+  color: var(--dx-white);
+}
+
+.trace-panel__toggle-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.trace-panel__toggle-dot--active {
+  background: var(--dx-signal);
+  box-shadow: 0 0 8px rgba(200, 255, 61, 0.4);
+}
+
+.trace-panel__toggle-chevron {
+  margin-left: auto;
+  transition: transform 0.2s ease;
+}
+
+.trace-panel[data-open="true"] .trace-panel__toggle-chevron {
+  transform: rotate(180deg);
+}
+
+.trace-panel__body {
+  display: none;
+  margin-top: 1rem;
+  background: #000;
+  border-radius: calc(var(--radius) / 2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+}
+
+.trace-panel[data-open="true"] .trace-panel__body {
+  display: block;
+}
+
+.trace-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  text-align: left;
+}
+
+.trace-table th {
+  padding: 0.75rem 1rem;
+  color: rgba(255, 255, 255, 0.4);
+  font-weight: 400;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.trace-table td {
+  padding: 0.75rem 1rem;
+  color: var(--dx-bone);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.trace-table tr:last-child td {
+  border-bottom: none;
+}

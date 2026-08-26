@@ -1,50 +1,67 @@
 "use client";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { motion, useInView, useReducedMotion } from "motion/react";
+import { useRef, type ReactNode } from "react";
 
+interface RevealProps {
+  children: ReactNode;
+  delay?: number;
+  /** y offset in px — defaults to 24 */
+  y?: number;
+  as?: keyof React.JSX.IntrinsicElements;
+  className?: string;
+  style?: React.CSSProperties;
+}
+
+/**
+ * Scroll-reveal wrapper using motion/react whileInView.
+ * Respects prefers-reduced-motion automatically.
+ */
 export default function Reveal({
   children,
   delay = 0,
+  y = 24,
   as: Tag = "div",
-}: {
-  children: ReactNode;
-  delay?: number;
-  as?: keyof React.JSX.IntrinsicElements;
-}): React.JSX.Element {
+  className,
+  style,
+}: RevealProps): React.JSX.Element {
+  const shouldReduceMotion = useReducedMotion();
   const ref = useRef<HTMLElement>(null);
-  const [phase, setPhase] = useState<"idle" | "hidden" | "revealed">("idle");
+  const isInView = useInView(ref as React.RefObject<Element>, {
+    once: true,
+    margin: "0px 0px -60px 0px",
+  });
 
-  useEffect(() => {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const el = ref.current;
-    if (!el) return;
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setPhase("revealed");
-          io.disconnect();
-        } else {
-          setPhase("hidden");
-        }
+  const variants = {
+    hidden: {
+      opacity: 0,
+      y: shouldReduceMotion ? 0 : y,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: shouldReduceMotion ? 0 : 0.55,
+        delay: shouldReduceMotion ? 0 : delay / 1000,
+        ease: [0.16, 1, 0.3, 1] as [number, number, number, number],
       },
-      { threshold: 0.15 }
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
+    },
+  };
 
-  const className =
-    phase === "idle"
-      ? "reveal-item"
-      : phase === "hidden"
-        ? "reveal-item will-reveal"
-        : "reveal-item is-revealed";
+  // motion() cast to the right element type
+  const MotionTag = motion[Tag as keyof typeof motion] as React.ComponentType<
+    Record<string, unknown>
+  >;
 
-  const style = phase === "revealed" ? { transitionDelay: `${delay}ms` } : undefined;
-
-  const AnyTag = Tag as unknown as (props: Record<string, unknown>) => React.JSX.Element;
   return (
-    <AnyTag ref={ref} className={className} style={style}>
+    <MotionTag
+      ref={ref}
+      className={className}
+      style={style}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={variants}
+    >
       {children}
-    </AnyTag>
+    </MotionTag>
   );
 }

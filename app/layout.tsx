@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import "./globals.css";
-import DiscoveryCtaStrip from "../src/components/DiscoveryCtaStrip";
 import SiteFooter from "../src/components/SiteFooter";
 import SiteHeader from "../src/components/SiteHeader";
 
 export const metadata: Metadata = {
-  title: "DAXVORA",
-  description: "The data and agentic operating layer for business.",
+  title: {
+    default: "DAXVORA — Data First. Agents Next.",
+    template: "%s — DAXVORA",
+  },
+  description:
+    "DAXVORA designs data and agentic operating systems for founder-led businesses. Discovery, data foundations, Halo Agent, and business-process automation.",
   icons: {
     icon: [
       { url: "/icons/DAXVORA_Favicon.ico" },
@@ -29,9 +32,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body>
+        <a href="#main-content" className="skip-nav">Skip to main content</a>
         <SiteHeader />
-        <main>{children}</main>
-        <DiscoveryCtaStrip />
+        <main id="main-content">{children}</main>
         <SiteFooter />
       </body>
     </html>

@@ -1,14 +1,13 @@
 ---
 project: DAXVORA Website (DAXVORA-RAJAT-2026-08-A01)
-version: 3.0-confirmed — targeted amendment over 2.1-confirmed.
-  Loosens elevation (§6), motion (§7), and adds an explicit imagery/
-  diagram system (§11, new) plus section-background variation (§5).
-  Typography (§3) stays Arial-only per AGENTS.md hard constraint — the
-  v3 proposal to add a heading webfont was rejected during drafting as
-  a conflict with "Documents/UI text is Arial" and is NOT included.
-status: confirmed — supersedes 2.1-confirmed; human-confirmed before
-  implementation (frontmatter corrected from draft status at
-  confirmation time)
+version: 3.0-draft — targeted amendment over 2.1-confirmed. Loosens
+  elevation (§6), motion (§7), and adds an explicit imagery/diagram
+  system (§11, new) plus section-background variation (§5). Typography
+  (§3) stays Arial-only per AGENTS.md hard constraint — the v3 proposal
+  to add a heading webfont was rejected during drafting as a conflict
+  with "Documents/UI text is Arial" and is NOT included. Pending human
+  confirmation before Ox Alpha implements.
+status: confirmed 
 authoritative-tokens: brand-assets/06_Brand_Tokens/daxvora.css,
   daxvora-brand-tokens.json
 scope: marketing/content pages and shared visual language, plus the

@@ -1,0 +1,183 @@
+/* ── Method stages: horizontal scroll-snap (desktop) ───────── */
+.method-stages-scroll {
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  display: flex;
+  gap: 1px;
+  background: rgb(52 57 65 / 0.12);
+  border: 1px solid rgb(52 57 65 / 0.12);
+  border-radius: var(--radius);
+  overflow-y: hidden;
+  padding-bottom: 0.5rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--dx-graphite) transparent;
+}
+
+.method-stages-scroll::-webkit-scrollbar {
+  height: 4px;
+}
+.method-stages-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.method-stages-scroll::-webkit-scrollbar-thumb {
+  background: var(--dx-graphite);
+  border-radius: 2px;
+}
+
+.method-stage-card {
+  scroll-snap-align: start;
+  flex: 0 0 clamp(220px, 22vw, 280px);
+  background: var(--dx-white);
+  padding: 1.75rem 1.25rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: background var(--t-base);
+  border-top: 2px solid transparent;
+}
+.method-stage-card:hover { background: var(--dx-bone); }
+.method-stage-card--key { border-top-color: var(--dx-signal); }
+
+.method-stage-card__number {
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+  font-size: 2.25rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--dx-signal);
+  background: var(--dx-carbon);
+  width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  flex-shrink: 0;
+  font-size: 1.25rem;
+}
+
+.method-stage-card__name {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  line-height: 1.25;
+  color: var(--dx-carbon);
+}
+
+.method-stage-card__divider {
+  width: 100%;
+  height: 1px;
+  background: rgb(52 57 65 / 0.12);
+  flex-shrink: 0;
+}
+
+.method-stage-card__label {
+  font-weight: 700;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dx-graphite);
+  margin-bottom: 0.2rem;
+}
+
+.method-stage-card__text {
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--dx-graphite);
+}
+
+
+/* ── Mobile accordion ───────────────────────────────────────── */
+.method-accordion {
+  display: none;
+  flex-direction: column;
+  border: 1px solid rgb(52 57 65 / 0.12);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.method-accordion-item {
+  border-bottom: 1px solid rgb(52 57 65 / 0.1);
+  background: var(--dx-white);
+}
+.method-accordion-item:last-child { border-bottom: none; }
+
+.method-accordion-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+  padding: 1rem 1.25rem;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: background var(--t-fast);
+}
+.method-accordion-trigger:hover { background: var(--dx-bone); }
+
+.method-accordion-trigger__num {
+  font-family: 'Arial Black', Arial, sans-serif;
+  font-weight: 900;
+  font-size: 0.875rem;
+  color: var(--dx-signal);
+  background: var(--dx-carbon);
+  padding: 0.2rem 0.45rem;
+  border-radius: 2px;
+  flex-shrink: 0;
+  letter-spacing: -0.02em;
+}
+
+.method-accordion-trigger__name {
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: var(--dx-carbon);
+  flex: 1;
+}
+
+.method-accordion-trigger__chevron {
+  flex-shrink: 0;
+  color: var(--dx-graphite);
+  transition: transform var(--t-fast);
+}
+
+.method-accordion-item[data-open="true"] .method-accordion-trigger__chevron {
+  transform: rotate(180deg);
+}
+
+.method-accordion-body {
+  display: none;
+  padding: 0 1.25rem 1.25rem;
+  gap: 1rem;
+  flex-direction: column;
+}
+
+.method-accordion-item[data-open="true"] .method-accordion-body {
+  display: flex;
+}
+
+.method-accordion-body__section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.method-accordion-body__label {
+  font-weight: 700;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dx-graphite);
+}
+
+.method-accordion-body__text {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--dx-carbon);
+}
+
+@media (max-width: 767px) {
+  .method-stages-scroll { display: none; }
+  .scroll-hint { display: none; }
+  .method-accordion { display: flex; }
+}

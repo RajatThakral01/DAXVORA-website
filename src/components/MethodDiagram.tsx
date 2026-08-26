@@ -1,91 +1,129 @@
 import type { JSX } from "react";
 
-const STAGE_LABELS = [
-  "01 Discovery",
-  "02 Atomic",
-  "03 Opportunity",
-  "04 Data/Context",
-  "05 Agent build",
-  "06 Phased deploy",
-  "07 Operate",
+const STAGES = [
+  { num: "01", name: "Discovery" },
+  { num: "02", name: "Atomic" },
+  { num: "03", name: "Opportunity" },
+  { num: "04", name: "Data/Context" },
+  { num: "05", name: "Agent build" },
+  { num: "06", name: "Phased deploy" },
+  { num: "07", name: "Operate" },
 ];
 
 export default function MethodDiagram(): JSX.Element {
+  const C = {
+    signal: "#C8FF3D",
+    white: "#FFFFFF",
+    carbon: "#0B0D10",
+    graphite: "#343941",
+    bone: "#F4F2EC",
+    w10: "rgba(255,255,255,0.10)",
+    w06: "rgba(255,255,255,0.06)",
+    w04: "rgba(255,255,255,0.04)",
+    w50: "rgba(255,255,255,0.50)",
+    w35: "rgba(255,255,255,0.35)",
+    w20: "rgba(255,255,255,0.20)",
+  };
+
+  const W = 900;
+  const cardW = 110;
+  const gap = (W - (cardW * 7)) / 6; 
+  
   return (
-    <div aria-hidden="true">
+    <div aria-hidden="true" style={{ width: "100%", overflowX: "auto", paddingBottom: "1rem" }}>
       <svg
-        className="diagram-flow diagram-horizontal"
-        viewBox="0 0 1400 80"
-        width="100%"
-        height="80"
+        viewBox={`0 0 ${W} 120`}
+        style={{ minWidth: "800px", display: "block", margin: "0 auto" }}
         role="presentation"
       >
-        {STAGE_LABELS.map((label, i) => {
-          const x = 16 + i * 196;
+        <defs>
+          <marker
+            id="arrow-method-signal"
+            markerWidth="6"
+            markerHeight="6"
+            refX="5"
+            refY="3"
+            orient="auto"
+          >
+            <path d="M0,0 L6,3 L0,6 Z" fill={C.signal} />
+          </marker>
+        </defs>
+
+        {/* Draw connectors first so they go behind cards */}
+        {STAGES.map((_, i) => {
+          if (i === STAGES.length - 1) return null;
+          const startX = i * (cardW + gap) + cardW;
+          const endX = startX + gap;
+          
           return (
-            <g key={label}>
+            <line
+              key={`conn-${i}`}
+              x1={startX}
+              y1={60}
+              x2={endX - 2}
+              y2={60}
+              stroke={C.signal}
+              strokeWidth={1.5}
+              markerEnd="url(#arrow-method-signal)"
+            />
+          );
+        })}
+
+        {/* Draw cards */}
+        {STAGES.map((stage, i) => {
+          const x = i * (cardW + gap);
+          
+          return (
+            <g key={stage.num}>
+              {/* Card background */}
               <rect
                 x={x}
-                y={12}
-                width={176}
-                height={56}
+                y={30}
+                width={cardW}
+                height={60}
                 rx={2}
-                fill="var(--dx-bone)"
-                stroke="var(--dx-mist)"
+                fill={C.graphite}
+                stroke={C.w10}
                 strokeWidth={1}
               />
-              <text x={x + 88} y={36} textAnchor="middle" dominantBaseline="middle">
-                {label}
+              
+              {/* Top Accent */}
+              <rect 
+                x={x} 
+                y={30} 
+                width={cardW} 
+                height={2} 
+                rx={1} 
+                fill={C.white} 
+              />
+              
+              {/* Number */}
+              <text
+                x={x + 12}
+                y={52}
+                fill={C.signal}
+                fontSize={10}
+                fontWeight={700}
+                fontFamily="Arial, Helvetica, sans-serif"
+                letterSpacing={1}
+              >
+                {stage.num}
               </text>
-              {i < STAGE_LABELS.length - 1 && (
-                <line
-                  x1={x + 176}
-                  y1={40}
-                  x2={x + 196}
-                  y2={40}
-                  stroke="var(--dx-carbon)"
-                  strokeWidth={1}
-                />
-              )}
+              
+              {/* Name */}
+              <text
+                x={x + 12}
+                y={72}
+                fill={C.white}
+                fontSize={11}
+                fontWeight={900}
+                fontFamily="Arial, Helvetica, sans-serif"
+              >
+                {stage.name}
+              </text>
             </g>
           );
         })}
-      </svg>
-
-      <svg
-        className="diagram-flow diagram-vertical"
-        viewBox="0 0 360 520"
-        width="100%"
-        height="520"
-        role="presentation"
-      >
-        {STAGE_LABELS.map((label, i) => (
-          <g key={label}>
-            <rect
-              x={16}
-              y={12 + i * 72}
-              width={328}
-              height={52}
-              rx={2}
-              fill="var(--dx-bone)"
-              stroke="var(--dx-mist)"
-              strokeWidth={1}
-            />
-            <text x={180} y={38 + i * 72} textAnchor="middle" dominantBaseline="middle">
-              {label}
-            </text>
-            {i < STAGE_LABELS.length - 1 && (
-              <line
-                x1={180}
-                y1={64 + i * 72}
-                x2={180}
-                y2={84 + i * 72}
-                stroke="var(--dx-carbon)"
-                strokeWidth={1}
-              />
-            )}
-          </g>
-        ))}
       </svg>
     </div>
   );

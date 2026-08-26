@@ -3,81 +3,107 @@ import type { JSX } from "react";
 const STAGES = ["Validate", "Classify", "Score", "Attribute", "Route"];
 
 export default function DemandPipelineDiagram(): JSX.Element {
+  const C = {
+    signal: "#C8FF3D",
+    white: "#FFFFFF",
+    carbon: "#0B0D10",
+    graphite: "#343941",
+    bone: "#F4F2EC",
+    mist: "rgba(52,57,65,0.12)",
+    carbonDim: "rgba(11,13,16,0.35)",
+  };
+
+  const W = 440;
+  const cardH = 72;
+  const cardW = 340;
+  const gap = 72;
+  const H = (cardH * STAGES.length) + (gap * (STAGES.length - 1)) + 40; // padding top/bottom
+
   return (
-    <div aria-hidden="true">
+    <div aria-hidden="true" style={{ width: "100%", display: "flex", justifyContent: "center" }}>
       <svg
-        className="diagram-flow diagram-horizontal"
-        viewBox="0 0 1200 80"
-        width="100%"
-        height="80"
+        viewBox={`0 0 ${W} ${H}`}
+        style={{ width: "100%", maxWidth: "440px", height: "auto" }}
         role="presentation"
       >
+        <defs>
+          <marker
+            id="arrow-demand-vert"
+            markerWidth="6"
+            markerHeight="6"
+            refX="5"
+            refY="3"
+            orient="auto"
+          >
+            <path d="M0,0 L6,3 L0,6 Z" fill={C.carbonDim} />
+          </marker>
+        </defs>
+
+        {/* Connectors */}
+        {STAGES.map((_, i) => {
+          if (i === STAGES.length - 1) return null;
+          const startY = 20 + (i * (cardH + gap)) + cardH;
+          const endY = startY + gap;
+          
+          return (
+            <line
+              key={`conn-${i}`}
+              x1={W / 2}
+              y1={startY}
+              x2={W / 2}
+              y2={endY - 2}
+              stroke={C.carbonDim}
+              strokeWidth={1.5}
+              markerEnd="url(#arrow-demand-vert)"
+            />
+          );
+        })}
+
+        {/* Cards */}
         {STAGES.map((label, i) => {
-          const x = 16 + i * 236;
+          const y = 20 + i * (cardH + gap);
+          const x = (W - cardW) / 2;
+          
           return (
             <g key={label}>
+              {/* Card Base */}
               <rect
                 x={x}
-                y={16}
-                width={200}
-                height={48}
+                y={y}
+                width={cardW}
+                height={cardH}
                 rx={2}
-                fill="var(--dx-bone)"
-                stroke="var(--dx-mist)"
-                strokeWidth={1}
+                fill={C.graphite}
+                stroke="none"
               />
-              <text x={x + 100} y={44} textAnchor="middle" dominantBaseline="middle">
+              
+              {/* Left Accent (Vertical) */}
+              <rect 
+                x={x} 
+                y={y} 
+                width={3} 
+                height={cardH} 
+                rx={1} 
+                fill={C.signal} 
+              />
+              
+              {/* Text */}
+              <text
+                x={W / 2}
+                y={y + (cardH / 2) + 1}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fill={C.white}
+                fontSize={12}
+                fontWeight={900}
+                fontFamily="Arial, Helvetica, sans-serif"
+                letterSpacing={0.2}
+              >
                 {label}
               </text>
-              {i < STAGES.length - 1 && (
-                <line
-                  x1={x + 200}
-                  y1={40}
-                  x2={x + 236}
-                  y2={40}
-                  stroke="var(--dx-carbon)"
-                  strokeWidth={1}
-                />
-              )}
             </g>
           );
         })}
-      </svg>
-
-      <svg
-        className="diagram-flow diagram-vertical"
-        viewBox="0 0 360 400"
-        width="100%"
-        height="400"
-        role="presentation"
-      >
-        {STAGES.map((label, i) => (
-          <g key={label}>
-            <rect
-              x={16}
-              y={12 + i * 76}
-              width={328}
-              height={52}
-              rx={2}
-              fill="var(--dx-bone)"
-              stroke="var(--dx-mist)"
-              strokeWidth={1}
-            />
-            <text x={180} y={38 + i * 76} textAnchor="middle" dominantBaseline="middle">
-              {label}
-            </text>
-            {i < STAGES.length - 1 && (
-              <line
-                x1={180}
-                y1={64 + i * 76}
-                x2={180}
-                y2={88 + i * 76}
-                stroke="var(--dx-carbon)"
-                strokeWidth={1}
-              />
-            )}
-          </g>
-        ))}
       </svg>
     </div>
   );
