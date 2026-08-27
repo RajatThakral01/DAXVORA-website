@@ -1,4 +1,4 @@
-export type EventResult = "accepted" | "rejected" | "no-op" | "error";
+type EventResult = "accepted" | "rejected" | "no-op" | "error";
 
 export interface ObservabilityEvent {
   runId: string;

@@ -3,9 +3,8 @@ import type {
   TransitionEntry as SharedTransitionEntry,
 } from "../shared/observability";
 
-export type { EventResult, ObservabilityEvent } from "../shared/observability";
-export { REDACTION_NOTE } from "../shared/observability";
 
+export type { ObservabilityEvent } from "../shared/observability";
 export type DemandSignalStatus =
   | "idle"
   | "validating"
@@ -16,7 +15,7 @@ export type DemandSignalStatus =
   | "signal_rejected"
   | "pipeline_failed";
 
-export interface RawSignal {
+interface RawSignal {
   source: string;
   payload: string;
 }
@@ -46,7 +45,7 @@ export interface RoutingRecord {
   reason: string;
 }
 
-export type TransitionEntry = SharedTransitionEntry<DemandSignalStatus>;
+type TransitionEntry = SharedTransitionEntry<DemandSignalStatus>;
 
 export interface DemandSignalState {
   status: DemandSignalStatus;

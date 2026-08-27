@@ -280,7 +280,6 @@ describe("demandSignalReducer", () => {
     ]);
 
     for (const entry of entryStates) {
-      const logLengthBefore = entry.transitionLog.length;
       const failed = demandSignalReducer(entry, {
         type: "SIMULATE_PIPELINE_FAILURE",
       });

@@ -23,10 +23,10 @@ import type {
   TransitionEntry as SharedTransitionEntry,
 } from "../shared/observability";
 
-export type { EventResult, ObservabilityEvent } from "../shared/observability";
+export type { ObservabilityEvent } from "../shared/observability";
 export { REDACTION_NOTE } from "../shared/observability";
 
-export type TransitionEntry = SharedTransitionEntry<HaloAgentStatus>;
+type TransitionEntry = SharedTransitionEntry<HaloAgentStatus>;
 
 export interface HaloAgentState {
   status: HaloAgentStatus;

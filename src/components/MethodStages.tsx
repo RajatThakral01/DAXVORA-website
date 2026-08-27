@@ -18,7 +18,7 @@ interface MethodStagesProps {
 /** Desktop: horizontal scroll-snap card row */
 function ScrollSnapStages({ stages }: MethodStagesProps): JSX.Element {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [thumbX, setThumbX] = useState(0);
+  const [, setThumbX] = useState(0);
 
   const handleScroll = useCallback(() => {
     const el = scrollRef.current;

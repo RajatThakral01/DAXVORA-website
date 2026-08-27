@@ -3,9 +3,8 @@ import type {
   TransitionEntry as SharedTransitionEntry,
 } from "../shared/observability";
 
-export type { EventResult, ObservabilityEvent } from "../shared/observability";
-export { REDACTION_NOTE } from "../shared/observability";
-export type TransitionEntry = SharedTransitionEntry<DataContextStatus>;
+export type { ObservabilityEvent } from "../shared/observability";
+type TransitionEntry = SharedTransitionEntry<DataContextStatus>;
 
 export type DataContextStatus =
   | "idle"

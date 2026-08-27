@@ -1875,3 +1875,36 @@ span.text-signal:not(.hero__eyebrow, .nav-card__label,
     grid-template-columns: 1fr;
   }
 }
+
+/* Skeleton Loader */
+@keyframes skeleton-pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.4; }
+  100% { opacity: 1; }
+}
+.skeleton-box {
+  background: rgb(52 57 65 / 0.2);
+  border-radius: var(--radius);
+  animation: skeleton-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+.skeleton-title {
+  height: 48px;
+  width: 60%;
+  margin-bottom: 1.5rem;
+}
+.skeleton-text {
+  height: 24px;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+.skeleton-text.short {
+  width: 80%;
+}
+.skeleton-container {
+  padding: 6rem var(--page-pad);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

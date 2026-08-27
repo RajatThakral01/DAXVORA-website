@@ -31,3 +31,11 @@ out/
 # Internal DAXVORA source documents — not for public repo
 reference-docs/*.docx
 brand-assets/05_Documents/*.docx
+
+# Excluded project documents
+IMPLEMENTATION_PLAN.md
+PRD.md
+DESIGN.md
+implementation_plan.md
+prd.md
+design.md
